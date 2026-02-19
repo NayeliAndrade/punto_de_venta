@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import api from "./api/api";
-import type { Category } from "./types/category";
+import api from "../api/api";
+import type { Category } from "../types/category";
 
 function CategoryList() {
   // estado para almacenar las categorias

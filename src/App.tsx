@@ -1,24 +1,33 @@
 import { Routes, Route } from "react-router-dom"
-import Login from "./Login"
-import AddProduct from "./AddProduct"
-import AddUser from "./AddUser"
-import AddCategory from "./AddCategory"
-import Pay from "./Pay"
-import AddProductList from "./AddproductList"
-import CategoryList from "./CategoryList"
+import Login from "./pages/Login"
+import AddProduct from "./pages/AddProduct"
+import AddUser from "./pages/AddUser"
+import AddCategory from "./pages/AddCategory"
+import Pay from "./pages/Pay"
+import ProductList from "./pages/ProductList"
+import CategoryList from "./pages/CategoryList"
+import Layout from "./layout/Layout"
+import LayoutLogin from "./layout/LayoutLogin"
+//layout 
+//categoria redireccion de lista **
+//apicar layoout a todas las rutas y generar un layout para login ** 
+//react router dom aplicar nuevos links a todas as paginas **
+//tailwind css
 
+//agregar categoria cuando se guarde que redireccione a la lista de categoria, lo mismo par aproductos y usuarios 
+//
 
 function App() {
 
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/addProduct" element={<AddProduct />} />
-      <Route path="/AddProductList" element={<AddProductList />} />
-      <Route path="/addUser" element={<AddUser />} />
-      <Route path="/addCategory" element={<AddCategory />} />
-      <Route path="/categoryList" element={<CategoryList />} />
-      <Route path="/pay" element={<Pay />} />
+      <Route path="/login" element={<LayoutLogin><Login /></LayoutLogin>} />
+      <Route path="/addProduct" element={<Layout><AddProduct /></Layout >} />
+      <Route path="/productList" element={<Layout><ProductList /></Layout>} />
+      <Route path="/addUser" element={<Layout><AddUser /></Layout>} />
+      <Route path="/addCategory" element={<Layout><AddCategory /></Layout>} />
+      <Route path="/categoryList" element={<Layout><CategoryList /></Layout>} />
+      <Route path="/pay" element={<Layout><Pay /></Layout>} />
     </Routes>
   )
 }
