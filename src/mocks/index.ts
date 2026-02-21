@@ -1,10 +1,27 @@
 import MockAdapter from "axios-mock-adapter";
 import api from "../api/api";
 
-const mock = new MockAdapter(api, {delayResponse:500});
+const mock = new MockAdapter(api, { delayResponse: 500 });
+
+/* ================= CATEGORIES ================= */
+
+const categories = [
+  { id: 1, category: "electrodomesticos" },
+  { id: 2, category: "lacteos" },
+  { id: 3, category: "carnes" },
+];
+
+mock.onGet("/categories").reply(200, { categories });
+
+mock.onPost("/categories").reply((config) => {
+  categories.push(JSON.parse(config.data));
+  return [201, { categories }];
+});
+
+/* ================= PRODUCTS ================= */
 
 const products = [
-    {
+  {
         id: 1,
         sku: "15sud",
         product: "leche",
@@ -42,14 +59,11 @@ const products = [
     },
 ];
 
-mock.onGet("/products").reply(200, {products});
+mock.onGet("/products").reply(200, { products });
 
-mock.onPost("/products").reply((config)=>{
-    console.log(config.data);
-    products.push(JSON.parse(config.data))
-    return [201, {
-        products
-    }]
-})
+mock.onPost("/products").reply((config) => {
+  products.push(JSON.parse(config.data));
+  return [201, { products }];
+});
 
 export default mock;

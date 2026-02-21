@@ -1,7 +1,7 @@
 import img from "../img/cajete.png"
 import { Link } from "react-router-dom";
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const LayoutLogin = ({ children }: { children: React.ReactNode }) => {
     return (
 
 
@@ -18,12 +18,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         </h1>
                     </header>
                     <nav className=" gap-4 text-gray-600">
-                        <Link to="/login" className="hover:text-blue-500 transition m-4"> Inicio</Link>
+                        <Link to="/login" className="hover:text-blue-500 transition"> Inicio</Link>
                     </nav>
                 </header>
 
                 <main className="flex-1 flex items-center justify-center">
-                    <div className="bg-white shadow-lg rounded-xl p-10 text-center">
+                    <div className="bg-white shadow-lg rounded-xl text-center">
                         {children}
                     </div>
                 </main>
@@ -33,4 +33,4 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     )
 }
 
-export default Layout
+export default LayoutLogin

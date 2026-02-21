@@ -39,10 +39,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
                             Lista de usuarios
                         </Link>
                     </aside>
-                    <main className="flex-1 flex items-center justify-center">
-                        <div className="bg-white shadow-lg rounded-xl p-10 text-center">
-                            {children}
-                        </div>
+                    <main className=" flex flex-1">
+                        {children}
                     </main>
                 </div>
                 <footer className="bg-slate-50 border-t border-gray-200 p-4 text-center text-sm text-gray-400">

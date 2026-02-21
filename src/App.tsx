@@ -8,14 +8,6 @@ import ProductList from "./pages/ProductList"
 import CategoryList from "./pages/CategoryList"
 import Layout from "./layout/Layout"
 import LayoutLogin from "./layout/LayoutLogin"
-//layout 
-//categoria redireccion de lista **
-//apicar layoout a todas las rutas y generar un layout para login ** 
-//react router dom aplicar nuevos links a todas as paginas **
-//tailwind css
-
-//agregar categoria cuando se guarde que redireccione a la lista de categoria, lo mismo par aproductos y usuarios 
-//
 
 function App() {
 

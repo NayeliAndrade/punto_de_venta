@@ -8,7 +8,7 @@ function AddCategory() {
     //es la funcion que maneja el submit del formulario
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         //fromData es la informacion que se recibe desde el formulario
-        console.log(formData);
+        //console.log(formData);
         //envia la informacion al backend, agregando una nueva categoria
         api.post('/categories', {
             id: 3,
@@ -35,27 +35,31 @@ function AddCategory() {
             ...prevState,
             [name]: value
         }));
-        console.log(name, value);
+        //console.log(name, value);
 
     }
 
     return (
         <>
             {/* formulario para agregar una nueva categoria */}
-            <h1>Categoria</h1>
-            <Link to="/categoryList">Ir a la lista de categorias</Link>
-            <form className="flex flex-col sm:flex-row gap-3 p-4 bg-white rounded-lg shadow-sm" onSubmit={handleSubmit}>
-                <input type="text"
-                    className="flex flex-col sm:flex-row gap-3 p-4 bg-white rounded-lg shadow-sm"
-                    placeholder="Ingresa la categoria"
-                    name="category"
-                    onChange={handleChange}
-                    value={formData.category}
-                />
-                <button
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md transition-colors duration-200"
-                    type="submit">Agregar</button>
-            </form>
+
+            <div className="w-100  p-6  bg-white rounded-lg shadow-sm">
+                <h2 className="text-xl font-bold m-4 text-gray-800"> Agregar categoria</h2>
+                <Link className="m-4 text-blue-600 hover:text-blue-800" to="/categoryList">Ir a la lista de categorias</Link>
+                <form className="flex flex-col sm:flex-row gap-3 p-4" onSubmit={handleSubmit}>
+                    <input type="text"
+                        className="flex flex-col sm:flex-row gap-3 p-4 bg-white rounded-lg shadow-sm"
+                        placeholder="Ingresa la categoria"
+                        name="category"
+                        onChange={handleChange}
+                        value={formData.category}
+                    />
+                    <button
+                        className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md transition-colors duration-200"
+                        type="submit">Agregar</button>
+                </form>
+            </div>
+
         </>
     )
 }
