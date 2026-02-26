@@ -19,6 +19,14 @@ function ProductList() {
             })
     }, []);
 
+    const handleDelete = (id: number) => {
+        api.delete(`/products/${id}`)
+            .then(() => {
+                setProducts(prev => prev.filter(p => p.id !== id));
+            })
+            .catch(err => console.error(err));
+    };
+
     return (
         <>
             <div className="w-full min-h-screen p-6">
@@ -55,9 +63,12 @@ function ProductList() {
                                         <Link to={`/editProduct/${prod.id}`} className="text-blue-500 hover:text-blue-700">
                                             <PencilIcon className="w-6 h-6 text-blue-500 cursor-pointer hover:text-blue-700" />
                                         </Link>
-                                        <Link to={`/deleteProduct/${prod.id}`}>
+                                        <button
+                                            onClick={() => handleDelete(prod.id)}
+                                            className="text-red-500"
+                                        >
                                             <TrashIcon className="w-6 h-6 text-red-500 cursor-pointer hover:text-red-700" />
-                                        </Link>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>

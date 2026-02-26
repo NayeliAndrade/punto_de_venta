@@ -24,6 +24,15 @@ function CategoryList() {
       });
   }, []);
 
+  const handleDelete = (id: number) => {
+    api.delete(`/categories/${id}`)
+      .then(() => {
+        // actualiza la lista sin recargar
+        setCategories(prev => prev.filter(c => c.id !== id));
+      })
+      .catch(err => console.error(err));
+  };
+
   return (
     // muestra la lista de categorias
     <div className="w-full min-h-screen p-6">
@@ -45,9 +54,12 @@ function CategoryList() {
                   <Link to={`/editCategory/${category.id}`} className="text-blue-500 hover:text-blue-700">
                     <PencilIcon className="w-6 h-6 text-blue-500 cursor-pointer hover:text-blue-700" />
                   </Link>
-                  <Link to={`/deleteCategory/${category.id}`}>
+                  <button
+                    onClick={() => handleDelete(category.id)}
+                    className="text-red-500"
+                  >
                     <TrashIcon className="w-6 h-6 text-red-500 cursor-pointer hover:text-red-700" />
-                  </Link>
+                  </button>
                 </div>
               </td>
             </tr>
