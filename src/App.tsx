@@ -8,14 +8,8 @@ import ProductList from "./pages/ProductList"
 import CategoryList from "./pages/CategoryList"
 import Layout from "./layout/Layout"
 import LayoutLogin from "./layout/LayoutLogin"
-//layout 
-//categoria redireccion de lista **
-//apicar layoout a todas las rutas y generar un layout para login ** 
-//react router dom aplicar nuevos links a todas as paginas **
-//tailwind css
-
-//agregar categoria cuando se guarde que redireccione a la lista de categoria, lo mismo par aproductos y usuarios 
-//
+import EditCategory from "./pages/editCategory"
+import EditProduct from "./pages/EditProduct"
 
 function App() {
 
@@ -24,9 +18,12 @@ function App() {
       <Route path="/login" element={<LayoutLogin><Login /></LayoutLogin>} />
       <Route path="/addProduct" element={<Layout><AddProduct /></Layout >} />
       <Route path="/productList" element={<Layout><ProductList /></Layout>} />
+      <Route path="/editProduct/:id" element={<Layout><EditProduct /></Layout>} />
       <Route path="/addUser" element={<Layout><AddUser /></Layout>} />
       <Route path="/addCategory" element={<Layout><AddCategory /></Layout>} />
       <Route path="/categoryList" element={<Layout><CategoryList /></Layout>} />
+      <Route path="/editCategory/:id" element={<Layout><EditCategory /></Layout>} />
+      <Route path="/deleteCategory/:id" element={<Layout><EditCategory /></Layout>} />
       <Route path="/pay" element={<Layout><Pay /></Layout>} />
     </Routes>
   )

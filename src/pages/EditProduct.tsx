@@ -1,63 +1,93 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../api/api";
-import { Link, useNavigate } from "react-router-dom";
-import Button from "../components/button";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import type { product } from "../types/product";
 
-function AddProduct() {
+function EditProduct() {
     const navigate = useNavigate();
+    const [formData, setFormData] = useState({ id: "", sku: "", product: "", description: "", price: 0, cost: 0, iva: 0, data_expiration: "", unit_measure: "", image_product: "" });
+    const { id } = useParams<{ id: string }>();
+    //const newGuid = crypto.randomUUID();
 
-    const [formData, setFormData] = useState({
-        id: "",
-        sku: "",
-        product: "",
-        image_product: "",
-        description: "",
-        unit_measure: "",
-        iva: "",
-        price: "",
-        cost: "",
-        data_expiration: ""
-    });
+    useEffect(() => {
+        if (id) {
+            api.get("/products")
+                .then(res => {
+                    const product = res.data.products.find(
+                        (p: product) => p.id === Number(id)
+                    );
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        console.log(formData);
+                    if (product) {
+                        setFormData({
+                            id: String(product.id),
+                            sku: product.sku,
+                            product: product.product,
+                            description: product.description,
+                            price: product.price,
+                            cost: product.cost,
+                            iva: product.iva,
+                            data_expiration: product.data_expiration,
+                            unit_measure: product.unit_measure,
+                            image_product: product.image_product
 
-        api.post("/products", {
-            id: 5,
+                        });
+                    }
+                })
+                .catch(err => console.error(err));
+        }
+    }, [id]);
+    // maneja el estado del formulario
+
+    //es la funcion que maneja el submit del formulario
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        //fromData es la informacion que se recibe desde el formulario
+        //console.log(formData);
+        //envia la informacion al backend, agregando una nueva categoria
+        api.put(`/products/${formData.id}`, {
+            id: formData.id,
             sku: formData.sku,
             product: formData.product,
-            image_product: formData.image_product,
             description: formData.description,
-            unit_measure: formData.unit_measure,
-            iva: formData.iva,
             price: formData.price,
             cost: formData.cost,
-            data_expiration: formData.data_expiration
+            iva: formData.iva,
+            data_expiration: formData.data_expiration,
+            unit_measure: formData.unit_measure,
+            image_product: formData.image_product
+
         }).then(res => {
             const data = res.data;
+            // muestra la respuesta del backend en la consola
             console.log(data);
             navigate("/productList");
+            //muestra un mensaje de exito en la consola
         }).catch(err => {
-            console.log(err);
-        })
+            //muestra si hay un error en la consola
+            console.error(err);
+        });
         e.preventDefault();
     }
-
+    //maneja el cambio en el input del formulario
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value, type, files } = e.target;
-        console.log(name, value, type, files);
-
+        //obtiene el nombre y el valor del input que se esta modificando
+        const { name, value } = e.target;
+        //actualiza el estado del formulario con el nuevo valor
         setFormData(prevState => ({
+            //copia el estado anterior
             ...prevState,
-            [name]: type === "file" ? (files ? files[0].name : "") : value
+            [name]: value
         }));
+        //console.log(name, value);
+
     }
 
     return (
         <>
+            {/* formulario para agregar una nueva categoria */}
+
             <form className="w-full max-w-2xl p-6 bg-white rounded-lg shadow-md" onSubmit={handleSubmit}>
-                <h2 className="text-xl font-bold mb-4 text-gray-800">Agregar Nuevo Producto</h2>
-                <Link to="/productList" className="text-blue-600 hover:text-blue-800">Volver a la lista de productos</Link>
+                <h2 className="text-xl font-bold mb-4 text-gray-800">Editar Producto</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input
                         className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -141,11 +171,15 @@ function AddProduct() {
                 </div>
 
                 <div className="mt-6 flex justify-end">
-                    <Button text="agregar" />
+                    <button
+                        className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-8 rounded-md transition-colors duration-200 shadow-sm"
+                        type="submit">
+                        Agregar producto
+                    </button>
                 </div>
             </form>
+
         </>
     )
 }
-
-export default AddProduct;
+export default EditProduct;
