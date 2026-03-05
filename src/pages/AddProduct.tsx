@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import api from "../api/api";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/button";
+import Tittle from "../components/Tittle";
+import Input from "../components/Input";
 
 function AddProduct() {
     const navigate = useNavigate();
@@ -56,73 +58,59 @@ function AddProduct() {
     return (
         <>
             <form className="w-full max-w-2xl p-6 bg-white rounded-lg shadow-md" onSubmit={handleSubmit}>
-                <h2 className="text-xl font-bold mb-4 text-gray-800">Agregar Nuevo Producto</h2>
+                <Tittle text="Nuevo producto" />
                 <Link to="/productList" className="text-blue-600 hover:text-blue-800">Volver a la lista de productos</Link>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input
-                        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        type="text"
+                    <Input
                         placeholder="Ingresar sku"
                         name="sku"
                         onChange={handleChange}
                         value={formData.sku}
                     />
 
-                    <input
-                        type="text"
-                        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    <Input
                         placeholder="Ingresar producto"
                         name="product"
                         onChange={handleChange}
                         value={formData.product}
                     />
 
-                    <input
-                        type="text"
-                        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    <Input
                         placeholder="Ingresar descripción"
                         name="description"
                         onChange={handleChange}
                         value={formData.description}
                     />
 
-                    <input
-                        type="text"
-                        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    <Input
                         placeholder="Unidad de medida"
                         name="unit_measure"
                         onChange={handleChange}
                         value={formData.unit_measure}
                     />
 
-                    <input
-                        type="text"
-                        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    <Input
                         placeholder="Ingresar IVA"
                         name="iva"
                         onChange={handleChange}
                         value={formData.iva}
                     />
 
-                    <input
-                        type="text"
-                        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    <Input
                         placeholder="Precio de venta"
                         name="price"
                         onChange={handleChange}
                         value={formData.price}
                     />
 
-                    <input
-                        type="text"
-                        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    <Input
                         placeholder="Costo al público"
                         name="cost"
                         onChange={handleChange}
                         value={formData.cost}
                     />
 
-                    <input
+                    <Input
                         className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-600"
                         type="date"
                         name="data_expiration"
@@ -131,7 +119,7 @@ function AddProduct() {
                     />
                     <div className="md:col-span-2">
                         <label className="block text-sm text-gray-500 mb-1">Imagen del producto</label>
-                        <input
+                        <Input
                             type="file"
                             className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                             name="image_product"

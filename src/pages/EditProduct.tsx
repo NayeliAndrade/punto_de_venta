@@ -3,6 +3,8 @@ import api from "../api/api";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import type { product } from "../types/product";
+import Button from "../components/button";
+import Tittle from "../components/Tittle";
 
 function EditProduct() {
     const navigate = useNavigate();
@@ -87,7 +89,7 @@ function EditProduct() {
             {/* formulario para agregar una nueva categoria */}
 
             <form className="w-full max-w-2xl p-6 bg-white rounded-lg shadow-md" onSubmit={handleSubmit}>
-                <h2 className="text-xl font-bold mb-4 text-gray-800">Editar Producto</h2>
+                <Tittle text="Editar Producto" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input
                         className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -171,11 +173,7 @@ function EditProduct() {
                 </div>
 
                 <div className="mt-6 flex justify-end">
-                    <button
-                        className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-8 rounded-md transition-colors duration-200 shadow-sm"
-                        type="submit">
-                        Agregar producto
-                    </button>
+                    <Button text="Editar" />
                 </div>
             </form>
 

@@ -2,6 +2,8 @@ import { useState } from "react";
 import api from "../api/api";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/button";
+import Tittle from "../components/Tittle";
+import Input from "../components/Input";
 function AddCategory() {
     const navigate = useNavigate();
     // maneja el estado del formulario
@@ -45,17 +47,15 @@ function AddCategory() {
             {/* formulario para agregar una nueva categoria */}
 
             <div className="w-100  p-6  bg-white rounded-lg shadow-sm">
-                <h2 className="text-xl font-bold m-4 text-gray-800"> Agregar categoria</h2>
+                <Tittle text="Agregar categoria" />
                 <Link className="m-4 text-blue-600 hover:text-blue-800" to="/categoryList">Ir a la lista de categorias</Link>
                 <form className="flex flex-col sm:flex-row gap-3 p-4" onSubmit={handleSubmit}>
-                    <input type="text"
-                        className="flex flex-col sm:flex-row gap-3 p-4 bg-white rounded-lg shadow-sm"
+                    <Input
                         placeholder="Ingresa la categoria"
-                        name="category"
-                        onChange={handleChange}
+                        name="category" onChange={handleChange}
                         value={formData.category}
                     />
-                    <Button />
+                    <Button text="Agregar" type="submit" />
                 </form>
             </div>
 

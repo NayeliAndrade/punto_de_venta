@@ -3,6 +3,9 @@ import api from "../api/api";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import type { category } from "../types/category";
+import Button from "../components/button";
+import Tittle from "../components/Tittle";
+import Input from "../components/Input";
 
 function EditCategory() {
     const navigate = useNavigate();
@@ -67,18 +70,15 @@ function EditCategory() {
             {/* formulario para agregar una nueva categoria */}
 
             <div className="w-100  p-6  bg-white rounded-lg shadow-sm">
-                <h2 className="text-xl font-bold m-4 text-gray-800"> Editar categoria</h2>
+                <Tittle text="Editar categoria" />
                 <form className="flex flex-col sm:flex-row gap-3 p-4" onSubmit={handleSubmit}>
-                    <input type="text"
-                        className="flex flex-col sm:flex-row gap-3 p-4 bg-white rounded-lg shadow-sm"
+                    <Input
                         placeholder="Ingresa la categoria"
                         name="category"
-                        onChange={handleChange}
                         value={formData.category}
+                        onChange={handleChange}
                     />
-                    <button
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md transition-colors duration-200"
-                        type="submit">Editar</button>
+                    <Button text="Editar" />
                 </form>
             </div>
 
