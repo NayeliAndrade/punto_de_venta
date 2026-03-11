@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import type { category } from "../types/category";
 import Button from "../components/button";
-import Tittle from "../components/Tittle";
+import Tittle from "../components/Title";
 import Input from "../components/Input";
 
 function EditCategory() {
@@ -78,7 +78,7 @@ function EditCategory() {
                         value={formData.category}
                         onChange={handleChange}
                     />
-                    <Button text="Editar" />
+                    <Button text="Editar" type="submit" />
                 </form>
             </div>
 

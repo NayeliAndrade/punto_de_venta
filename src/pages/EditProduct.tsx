@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import type { product } from "../types/product";
 import Button from "../components/button";
-import Tittle from "../components/Tittle";
+import Tittle from "../components/Title";
 
 function EditProduct() {
     const navigate = useNavigate();
@@ -173,7 +173,7 @@ function EditProduct() {
                 </div>
 
                 <div className="mt-6 flex justify-end">
-                    <Button text="Editar" />
+                    <Button text="Editar" type="submit" />
                 </div>
             </form>
 

@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import type { category } from "../types/category";
 import api from "../api/api";
-//import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid'
-//import { Link } from "react-router-dom";
-import Tittle from "../components/Tittle";
+import Tittle from "../components/Title";
 import Table from "../components/Table";
 
 function CategoryList() {

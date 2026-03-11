@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { product } from "../types/product";
 import api from "../api/api";
-import Tittle from "../components/Tittle";
+import Tittle from "../components/Title";
 import Table from "../components/Table";
 //como hacer un tipado de un arreglo de objetos 
 

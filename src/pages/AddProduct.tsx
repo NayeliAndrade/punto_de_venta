@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import api from "../api/api";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/button";
-import Tittle from "../components/Tittle";
+import Tittle from "../components/Title";
 import Input from "../components/Input";
 
 function AddProduct() {

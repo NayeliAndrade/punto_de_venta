@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid'
 
 function Button({ text, type, getEditLink, row, onDelete }: ButtonProps) {
-
+    //se renderizan botones dependiendo del tipo que se le pase por props (submit, edit o delete), 
+    //cada uno tiene un estilo diferente y una funcion diferente
     if (type === "submit") {
         return (
             <button
