@@ -33,7 +33,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                             Usuarios
                         </Link>
                     </aside>
-                    <main className=" flex flex-1">
+                    <main className=" flex flex-1 items-center justify-center">
                         {children}
                     </main>
                 </div>

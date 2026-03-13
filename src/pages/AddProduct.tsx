@@ -62,6 +62,7 @@ function AddProduct() {
                 <Link to="/productList" className="text-blue-600 hover:text-blue-800">Volver a la lista de productos</Link>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Input
+                        type="text"
                         placeholder="Ingresar sku"
                         name="sku"
                         onChange={handleChange}
@@ -69,6 +70,7 @@ function AddProduct() {
                     />
 
                     <Input
+                        type="text"
                         placeholder="Ingresar producto"
                         name="product"
                         onChange={handleChange}
@@ -76,6 +78,7 @@ function AddProduct() {
                     />
 
                     <Input
+                        type="text"
                         placeholder="Ingresar descripción"
                         name="description"
                         onChange={handleChange}
@@ -83,6 +86,7 @@ function AddProduct() {
                     />
 
                     <Input
+                        type="number"
                         placeholder="Unidad de medida"
                         name="unit_measure"
                         onChange={handleChange}
@@ -90,6 +94,7 @@ function AddProduct() {
                     />
 
                     <Input
+                        type="number"
                         placeholder="Ingresar IVA"
                         name="iva"
                         onChange={handleChange}
@@ -97,6 +102,7 @@ function AddProduct() {
                     />
 
                     <Input
+                        type="number"
                         placeholder="Precio de venta"
                         name="price"
                         onChange={handleChange}
@@ -104,6 +110,7 @@ function AddProduct() {
                     />
 
                     <Input
+                        type="number"
                         placeholder="Costo al público"
                         name="cost"
                         onChange={handleChange}
@@ -112,6 +119,7 @@ function AddProduct() {
 
                     <Input
                         type="date"
+                        placeholder="fecha de expiracion"
                         name="data_expiration"
                         onChange={handleChange}
                         value={String(formData.data_expiration)}
@@ -119,8 +127,8 @@ function AddProduct() {
                     <div className="md:col-span-2">
                         <label className="block text-sm text-gray-500 mb-1">Imagen del producto</label>
                         <Input
+                            value={formData.image_product}
                             type="file"
-                            className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                             name="image_product"
                             onChange={handleChange}
                         />
