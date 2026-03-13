@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import api from "../api/api";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../components/button";
-import Tittle from "../components/Title";
+import Button from "../components/Button";
+import Title from "../components/Title";
 import Input from "../components/Input";
 
 function AddProduct() {
@@ -58,7 +58,7 @@ function AddProduct() {
     return (
         <>
             <form className="w-full max-w-2xl p-6 bg-white rounded-lg shadow-md" onSubmit={handleSubmit}>
-                <Tittle text="Nuevo producto" />
+                <Title text="Nuevo producto" />
                 <Link to="/productList" className="text-blue-600 hover:text-blue-800">Volver a la lista de productos</Link>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Input
@@ -111,11 +111,10 @@ function AddProduct() {
                     />
 
                     <Input
-                        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-600"
                         type="date"
                         name="data_expiration"
                         onChange={handleChange}
-                        value={formData.data_expiration}
+                        value={String(formData.data_expiration)}
                     />
                     <div className="md:col-span-2">
                         <label className="block text-sm text-gray-500 mb-1">Imagen del producto</label>
@@ -129,7 +128,7 @@ function AddProduct() {
                 </div>
 
                 <div className="mt-6 flex justify-end">
-                    <Button text="agregar" />
+                    <Button text="agregar" type="submit" />
                 </div>
             </form>
         </>

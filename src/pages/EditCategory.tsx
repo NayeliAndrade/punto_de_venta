@@ -3,8 +3,8 @@ import api from "../api/api";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import type { category } from "../types/category";
-import Button from "../components/button";
-import Tittle from "../components/Title";
+import Button from "../components/Button";
+import Title from "../components/Title";
 import Input from "../components/Input";
 
 function EditCategory() {
@@ -12,22 +12,20 @@ function EditCategory() {
     const [formData, setFormData] = useState({ id: "", category: "" });
     const { id } = useParams<{ id: string }>();
     useEffect(() => {
-        if (id) {
-            api.get("/categories")
-                .then(res => {
-                    const category = res.data.categories.find(
-                        (c: category) => c.id === Number(id)
-                    );
+        api.get("/categories")
+            .then(res => {
+                const category = res.data.categories.find(
+                    (c: category) => String(c.id) === String(id)
+                );
+                if (category) {
+                    setFormData({
+                        id: String(category.id),
+                        category: category.category
+                    });
+                }
+            })
+            .catch(err => console.error(err));
 
-                    if (category) {
-                        setFormData({
-                            id: String(category.id),
-                            category: category.category
-                        });
-                    }
-                })
-                .catch(err => console.error(err));
-        }
     }, [id]);
     // maneja el estado del formulario
 
@@ -70,7 +68,7 @@ function EditCategory() {
             {/* formulario para agregar una nueva categoria */}
 
             <div className="w-100  p-6  bg-white rounded-lg shadow-sm">
-                <Tittle text="Editar categoria" />
+                <Title text="Editar categoria" />
                 <form className="flex flex-col sm:flex-row gap-3 p-4" onSubmit={handleSubmit}>
                     <Input
                         placeholder="Ingresa la categoria"
@@ -78,7 +76,7 @@ function EditCategory() {
                         value={formData.category}
                         onChange={handleChange}
                     />
-                    <Button text="Editar" type="submit" />
+                    <Button text="Guardar" type="submit" />
                 </form>
             </div>
 

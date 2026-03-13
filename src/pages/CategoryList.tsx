@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import type { category } from "../types/category";
 import api from "../api/api";
-import Tittle from "../components/Title";
+import Title from "../components/Title";
 import Table from "../components/Table";
+import type { Column } from "../components/Table";
 
 function CategoryList() {
-  const columns = [
+  const columns: Column<category>[] = [
     {
       header: "ID",
       accessor: "id"
     },
     {
-      header: "Categoría",
+      header: "Categoria",
       accessor: "category"
     }
   ];
@@ -46,7 +47,7 @@ function CategoryList() {
   return (
     // muestra la lista de categorias
     <div className="w-full min-h-screen p-6">
-      <Tittle text="Lista de categorias" />
+      <Title text="Lista de categorias" />
       <Table
         data={categories}
         columns={columns}

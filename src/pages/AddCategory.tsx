@@ -1,10 +1,14 @@
 import { useState } from "react";
 import api from "../api/api";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../components/button";
-import Tittle from "../components/Title";
+import Button from "../components/Button";
+import Title from "../components/Title";
 import Input from "../components/Input";
 function AddCategory() {
+    const generateUuid = () => {
+        return crypto.randomUUID();
+    }
+
     const navigate = useNavigate();
     // maneja el estado del formulario
     const [formData, setFormData] = useState({ id: "", category: "" });
@@ -14,7 +18,7 @@ function AddCategory() {
         //console.log(formData);
         //envia la informacion al backend, agregando una nueva categoria
         api.post('/categories', {
-            id: 3,
+            id: generateUuid(),
             category: formData.category
         }).then(res => {
             const data = res.data;
@@ -47,7 +51,7 @@ function AddCategory() {
             {/* formulario para agregar una nueva categoria */}
 
             <div className="w-100  p-6  bg-white rounded-lg shadow-sm">
-                <Tittle text="Agregar categoria" />
+                <Title text="Agregar categoria" />
                 <Link className="m-4 text-blue-600 hover:text-blue-800" to="/categoryList">Ir a la lista de categorias</Link>
                 <form className="flex flex-col sm:flex-row gap-3 p-4" onSubmit={handleSubmit}>
                     <Input

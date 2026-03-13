@@ -3,8 +3,9 @@ import api from "../api/api";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import type { product } from "../types/product";
-import Button from "../components/button";
-import Tittle from "../components/Title";
+import Button from "../components/Button";
+import Title from "../components/Title";
+import Input from "../components/Input";
 
 function EditProduct() {
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ function EditProduct() {
             api.get("/products")
                 .then(res => {
                     const product = res.data.products.find(
-                        (p: product) => p.id === Number(id)
+                        (p: product) => String(p.id) === String(id)
                     );
 
                     if (product) {
@@ -89,87 +90,69 @@ function EditProduct() {
             {/* formulario para agregar una nueva categoria */}
 
             <form className="w-full max-w-2xl p-6 bg-white rounded-lg shadow-md" onSubmit={handleSubmit}>
-                <Tittle text="Editar Producto" />
+                <Title text="Editar Producto" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input
-                        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        type="text"
+                    <Input
                         placeholder="Ingresar sku"
                         name="sku"
                         onChange={handleChange}
                         value={formData.sku}
                     />
 
-                    <input
-                        type="text"
-                        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    <Input
                         placeholder="Ingresar producto"
                         name="product"
                         onChange={handleChange}
                         value={formData.product}
                     />
 
-                    <input
-                        type="text"
-                        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    <Input
                         placeholder="Ingresar descripción"
                         name="description"
                         onChange={handleChange}
                         value={formData.description}
                     />
 
-                    <input
-                        type="text"
-                        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    <Input
                         placeholder="Unidad de medida"
                         name="unit_measure"
                         onChange={handleChange}
                         value={formData.unit_measure}
                     />
 
-                    <input
-                        type="text"
-                        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    <Input
                         placeholder="Ingresar IVA"
                         name="iva"
                         onChange={handleChange}
-                        value={formData.iva}
+                        value={String(formData.iva)}
                     />
 
-                    <input
-                        type="text"
-                        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    <Input
                         placeholder="Precio de venta"
                         name="price"
                         onChange={handleChange}
-                        value={formData.price}
+                        value={String(formData.price)}
                     />
 
-                    <input
-                        type="text"
-                        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    <Input
                         placeholder="Costo al público"
                         name="cost"
                         onChange={handleChange}
-                        value={formData.cost}
+                        value={String(formData.cost)}
                     />
 
-                    <input
-                        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-600"
-                        type="date"
+                    <Input
+                        placeholder="expiracion"
                         name="data_expiration"
                         onChange={handleChange}
                         value={formData.data_expiration}
                     />
-                    <div className="md:col-span-2">
-                        <label className="block text-sm text-gray-500 mb-1">Imagen del producto</label>
-                        <input
-                            type="file"
-                            className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                            name="image_product"
-                            onChange={handleChange}
-                        />
-                    </div>
+                    <Input
+                        placeholder="URL de la imagen"
+                        name="image_product"
+                        onChange={handleChange}
+                        value={formData.image_product}
+                    />
                 </div>
 
                 <div className="mt-6 flex justify-end">

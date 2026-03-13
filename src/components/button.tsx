@@ -2,7 +2,11 @@ import type { ButtonProps } from "../types/ButtonProps";
 import { Link } from "react-router-dom";
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid'
 
-function Button({ text, type, getEditLink, row, onDelete }: ButtonProps) {
+interface BaseEntity {
+    id: string | number;
+}
+
+function Button<T extends BaseEntity>({ text, type, getEditLink, row, onDelete }: ButtonProps<T>) {
     //se renderizan botones dependiendo del tipo que se le pase por props (submit, edit o delete), 
     //cada uno tiene un estilo diferente y una funcion diferente
     if (type === "submit") {
@@ -12,13 +16,13 @@ function Button({ text, type, getEditLink, row, onDelete }: ButtonProps) {
                 type="submit">{text}</button>
 
         )
-    } else if (type === "edit") {
+    } else if (type === "edit" && getEditLink && row) {
         return (
             <Link to={getEditLink(row)}>
                 <PencilIcon className="w-6 h-6 text-blue-500 cursor-pointer hover:text-blue-700" />
             </Link>
         )
-    } else if (type === "delete") {
+    } else if (type === "delete" && onDelete && row) {
         return (
             <button onClick={() => onDelete(row.id)}>
                 <TrashIcon className="w-6 h-6 text-red-500 cursor-pointer hover:text-red-700" />

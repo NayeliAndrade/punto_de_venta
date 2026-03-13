@@ -1,20 +1,17 @@
 import { useEffect, useState } from "react";
 import type { product } from "../types/product";
 import api from "../api/api";
-import Tittle from "../components/Title";
-import Table from "../components/Table";
+import Title from "../components/Title";
+import Table, { type Column } from "../components/Table";
 //como hacer un tipado de un arreglo de objetos 
-
-
-
 function ProductList() {
-    const columns = [
+    const columns: Column<product>[] = [
         { header: "Producto", accessor: "product" },
         { header: "Precio", accessor: "price" },
         { header: "SKU", accessor: "sku" },
         {
             header: "Imagen",
-            accessor: (row: any) => (
+            accessor: (row: product) => (
                 <img
                     src={row.image_product}
                     alt="Imagen del producto"
@@ -43,10 +40,10 @@ function ProductList() {
             })
     }, []);
 
-    const handleDelete = (id: number) => {
+    const handleDelete = (id: string | number) => {
         api.delete(`/products/${id}`)
             .then(() => {
-                setProducts(prev => prev.filter(p => p.id !== id));
+                setProducts(prev => prev.filter(p => String(p.id) !== String(id)));
             })
             .catch(err => console.error(err));
     };
@@ -54,8 +51,8 @@ function ProductList() {
     return (
         <>
             <div className="w-full min-h-screen p-6">
-                <Tittle text="Lista de productos" />
-                <Table<product>
+                <Title text="Lista de productos" />
+                <Table
                     data={products}
                     columns={columns}
                     onDelete={handleDelete}
