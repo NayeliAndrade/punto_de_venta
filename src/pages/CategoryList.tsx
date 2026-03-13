@@ -4,6 +4,7 @@ import api from "../api/api";
 import Title from "../components/Title";
 import Table from "../components/Table";
 import type { Column } from "../components/Table";
+import { Link } from "react-router-dom";
 
 function CategoryList() {
   const columns: Column<category>[] = [
@@ -47,7 +48,12 @@ function CategoryList() {
   return (
     // muestra la lista de categorias
     <div className="w-full min-h-screen p-6">
-      <Title text="Lista de categorias" />
+      <div className="flex justify-between items-center mb-4">
+        <Title text="Lista de categorias" />
+        <Link to="/addCategory" className="block p-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200">
+          Agregar categoría
+        </Link >
+      </div>
       <Table
         data={categories}
         columns={columns}

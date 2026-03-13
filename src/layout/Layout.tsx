@@ -24,19 +24,13 @@ const Layout = ({ children }: { children: ReactNode }) => {
                 <div className="flex flex-1">
                     <aside className="w-64 bg-gray-900 text-white p-9 ">
                         <Link to="/categoryList" className="block p-2  rounded hover:bg-gray-700 transition">
-                            Lista de categorías
-                        </Link >
-                        <Link to="/addCategory" className="block p-2 rounded hover:bg-gray-700 transition">
-                            Agregar categorías
-                        </Link >
-                        <Link to="/addProduct" className="block p-2 rounded hover:bg-gray-700 transition">
-                            Agregar productos
+                            Categorías
                         </Link >
                         <Link to="/productList" className="block p-2 rounded hover:bg-gray-700 transition">
-                            Lista de productos
+                            Productos
                         </Link >
                         <Link to="/userList" className="block p-2 rounded hover:bg-gray-700 transition">
-                            Lista de usuarios
+                            Usuarios
                         </Link>
                     </aside>
                     <main className=" flex flex-1">

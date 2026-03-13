@@ -3,6 +3,7 @@ import type { product } from "../types/product";
 import api from "../api/api";
 import Title from "../components/Title";
 import Table, { type Column } from "../components/Table";
+import { Link } from "react-router-dom";
 //como hacer un tipado de un arreglo de objetos 
 function ProductList() {
     const columns: Column<product>[] = [
@@ -51,7 +52,13 @@ function ProductList() {
     return (
         <>
             <div className="w-full min-h-screen p-6">
-                <Title text="Lista de productos" />
+                <div className="flex justify-between items-center mb-4">
+                    <Title text="Lista de productos" />
+                    <Link to="/addProduct" className="block p-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200">
+                        Agregar producto
+                    </Link >
+                </div>
+
                 <Table
                     data={products}
                     columns={columns}
