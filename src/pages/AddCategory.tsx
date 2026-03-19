@@ -49,12 +49,12 @@ function AddCategory() {
     return (
         <>
             {/* formulario para agregar una nueva categoria */}
-
-            <div className="w-100  p-6  bg-white rounded-lg shadow-sm">
+            <div className="w-full max-w-md   p-6 rounded-lg shadow-md bg-white">
                 <Title text="Agregar categoria" />
-                <Link className="m-4 text-blue-600 hover:text-blue-800" to="/categoryList">Ir a la lista de categorias</Link>
+                <Link className="text-blue-600 hover:text-blue-800" to="/categoryList">Ir a la lista de categorias</Link>
                 <form className="flex flex-col sm:flex-row gap-3 p-4" onSubmit={handleSubmit}>
                     <Input
+                        type="text"
                         placeholder="Ingresa la categoria"
                         name="category" onChange={handleChange}
                         value={formData.category}
