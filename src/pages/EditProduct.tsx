@@ -97,6 +97,7 @@ function EditProduct() {
                         name="sku"
                         onChange={handleChange}
                         value={formData.sku}
+                        type="number"
                     />
 
                     <Input
@@ -104,6 +105,7 @@ function EditProduct() {
                         name="product"
                         onChange={handleChange}
                         value={formData.product}
+                        type="text"
                     />
 
                     <Input
@@ -111,9 +113,11 @@ function EditProduct() {
                         name="description"
                         onChange={handleChange}
                         value={formData.description}
+                        type="text"
                     />
 
                     <Input
+                        type="number"
                         placeholder="Unidad de medida"
                         name="unit_measure"
                         onChange={handleChange}
@@ -121,6 +125,7 @@ function EditProduct() {
                     />
 
                     <Input
+                        type="number"
                         placeholder="Ingresar IVA"
                         name="iva"
                         onChange={handleChange}
@@ -128,6 +133,7 @@ function EditProduct() {
                     />
 
                     <Input
+                        type="number"
                         placeholder="Precio de venta"
                         name="price"
                         onChange={handleChange}
@@ -135,6 +141,7 @@ function EditProduct() {
                     />
 
                     <Input
+                        type="number"
                         placeholder="Costo al público"
                         name="cost"
                         onChange={handleChange}
@@ -142,12 +149,14 @@ function EditProduct() {
                     />
 
                     <Input
+                        type="date"
                         placeholder="expiracion"
                         name="data_expiration"
                         onChange={handleChange}
                         value={formData.data_expiration}
                     />
                     <Input
+                        type="text"
                         placeholder="URL de la imagen"
                         name="image_product"
                         onChange={handleChange}
