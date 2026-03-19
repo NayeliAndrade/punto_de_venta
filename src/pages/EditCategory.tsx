@@ -3,7 +3,7 @@ import api from "../api/api";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import type { category } from "../types/category";
-import Button from "../components/Button1";
+import Button from "../components/Button";
 import Title from "../components/Title";
 import Input from "../components/Input";
 

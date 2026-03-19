@@ -1,4 +1,4 @@
-import Button from "./Button1";
+import Button from "./Button";
 
 interface BaseEntity {
     id: string | number;
