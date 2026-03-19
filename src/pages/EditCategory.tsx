@@ -75,6 +75,7 @@ function EditCategory() {
                         name="category"
                         value={formData.category}
                         onChange={handleChange}
+                        type="text"
                     />
                     <Button text="Guardar" type="submit" />
                 </form>
