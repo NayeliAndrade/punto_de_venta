@@ -2,15 +2,18 @@ import MockAdapter from "axios-mock-adapter";
 import api from "../api/api";
 
 const mock = new MockAdapter(api, { delayResponse: 500 });
+//mejorar los formularios y las tablas 
+//modal para borrar 
 
 /* ================= CATEGORIES ================= */
-const generateuId = ()=>{
+const generateUuid = ()=>{
     return crypto.randomUUID();
 }
+
 const categories = [
-  { id: 1, category: "electrodomesticos" },
-  { id: 2, category: "lacteos" },
-  { id: 3, category: "carnes" },
+  { id: generateUuid(), category: "electrodomesticos" },
+  { id: generateUuid(), category: "lacteos" },
+  { id: generateUuid(), category: "carnes" },
 ];
 
 mock.onGet("/categories").reply(200, { categories });
@@ -19,11 +22,13 @@ mock.onPost("/categories").reply((config) => {
   categories.push(JSON.parse(config.data));
   return [201, { categories }];
 });
-
-mock.onPut(/\/categories\/\d+/).reply((config) => {
-  const id = parseInt(config.url!.split("/").pop()!);
+///funcion que retorna un index de un string
+//0,1,2 
+//uuid
+mock.onPut(/\/categories\/.+/).reply((config) => {
+  const id = config.url!.split("/").pop();
   const updatedCategory = JSON.parse(config.data);
-  const index = categories.findIndex((cat) => cat.id === id); 
+  const index = categories.findIndex((cat) => String(cat.id) === String(id));
   if (index !== -1) {
     categories[index] = { ...categories[index], ...updatedCategory };
     return [200, { category: categories[index] }];
@@ -32,10 +37,10 @@ mock.onPut(/\/categories\/\d+/).reply((config) => {
   }
 });
 
-mock.onDelete(/\/categories\/\d+/).reply((config) => {
-  const id = Number(config.url?.split("/").pop());
+mock.onDelete(/\/categories\/.+/).reply((config) => {
+  const id = config.url?.split("/").pop();
 
-  const index = categories.findIndex(c => c.id === id);
+  const index = categories.findIndex(c => String(c.id) === String(id));
 
   if (index !== -1) {
     categories.splice(index, 1);
@@ -49,7 +54,7 @@ mock.onDelete(/\/categories\/\d+/).reply((config) => {
 
 const products = [
   {
-        id: 1,
+        id: generateUuid(),
         sku: "15sud",
         product: "leche",
         image_product: "/img/leche",
@@ -61,7 +66,7 @@ const products = [
         data_expiration: "15/01/2027"
     },
     {
-        id: 2,
+        id: generateUuid(),
         sku: "df522",
         product: "huevos",
         image_product: "/img/huevos",
@@ -73,7 +78,7 @@ const products = [
         data_expiration: "12/01/2027"
     },
     {
-        id: 3,
+        id: generateUuid(),
         sku: "54fyr",
         product: "television",
         image_product: "/img/tv",
@@ -93,10 +98,10 @@ mock.onPost("/products").reply((config) => {
   return [201, { products }];
 });
 
-mock.onPut(/\/products\/\d+/).reply((config) => {
-  const id = parseInt(config.url!.split("/").pop()!);
+mock.onPut(/\/products\/.+/).reply((config) => {
+ const id = config.url!.split("/").pop();
   const updatedProduct = JSON.parse(config.data);
-  const index = products.findIndex((p) => p.id === id); 
+  const index = products.findIndex((p) => String(p.id) === String(id));
   if (index !== -1) {
     products[index] = { ...products[index], ...updatedProduct };
     return [200, { product: products[index] }];
@@ -105,10 +110,10 @@ mock.onPut(/\/products\/\d+/).reply((config) => {
   }
 });
 
-mock.onDelete(/\/products\/\d+/).reply((config) => {
-  const id = Number(config.url?.split("/").pop());
+mock.onDelete(/\/products\/.+/).reply((config) => {
+  const id = config.url?.split("/").pop();
 
-  const index = products.findIndex(p => p.id === id);
+  const index = products.findIndex(p => String(p.id) === String(id));
 
   if (index !== -1) {
     products.splice(index, 1);

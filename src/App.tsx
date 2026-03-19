@@ -8,7 +8,7 @@ import ProductList from "./pages/ProductList"
 import CategoryList from "./pages/CategoryList"
 import Layout from "./layout/Layout"
 import LayoutLogin from "./layout/LayoutLogin"
-import EditCategory from "./pages/editCategory"
+import EditCategory from "./pages/EditCategory"
 import EditProduct from "./pages/EditProduct"
 
 function App() {
