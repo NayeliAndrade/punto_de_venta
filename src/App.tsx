@@ -10,6 +10,7 @@ import Layout from "./layout/Layout"
 import LayoutLogin from "./layout/LayoutLogin"
 import EditCategory from "./pages/EditCategory"
 import EditProduct from "./pages/EditProduct"
+import UserList from "./pages/UserList"
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
       <Route path="/categoryList" element={<Layout><CategoryList /></Layout>} />
       <Route path="/editCategory/:id" element={<Layout><EditCategory /></Layout>} />
       <Route path="/deleteCategory/:id" element={<Layout><EditCategory /></Layout>} />
+      <Route path="/userList" element={<Layout><UserList /></Layout>} />
       <Route path="/pay" element={<Layout><Pay /></Layout>} />
     </Routes>
   )

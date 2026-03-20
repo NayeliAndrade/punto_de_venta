@@ -123,4 +123,43 @@ mock.onDelete(/\/products\/.+/).reply((config) => {
   return [404, { message: "Product not found" }];
 });
 
+/* ================= USERS ================= */
+
+const users = [
+  { id: generateUuid(), name: "Juan Reyes", email: "Juan@example.com" },
+  { id: generateUuid(), name: "Camila Perez", email: "Camila@example.com" },
+];
+
+mock.onGet("/users").reply(200, { users });
+
+mock.onPost("/users").reply((config) => {
+  users.push(JSON.parse(config.data));
+  return [201, { users }];
+});
+
+mock.onPut(/\/users\/.+/).reply((config) => {
+  const id = config.url!.split("/").pop();
+  const updatedUser = JSON.parse(config.data);
+  const index = users.findIndex((u) => String(u.id) === String(id));
+  if (index !== -1) {
+    users[index] = { ...users[index], ...updatedUser };
+    return [200, { user: users[index] }];
+  } else {
+    return [404, { message: "User not found" }];
+  }
+});
+
+mock.onDelete(/\/users\/.+/).reply((config) => {
+  const id = config.url?.split("/").pop();
+
+  const index = users.findIndex(u => String(u.id) === String(id));
+
+  if (index !== -1) {
+    users.splice(index, 1);
+    return [200, { message: "User deleted" }];
+  }
+
+  return [404, { message: "User not found" }];
+});
+
 export default mock;
