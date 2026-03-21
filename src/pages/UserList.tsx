@@ -37,7 +37,7 @@ function UserList() {
             <div className="w-full min-h-screen p-6">
                 <div className="flex justify-between items-center mb-4">
                     <Title text="Lista de Usuarios" />
-                    <Link to="/addProduct" className="block p-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200">
+                    <Link to="/addUser" className="block p-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200">
                         Agregar usuario
                     </Link >
                 </div>
