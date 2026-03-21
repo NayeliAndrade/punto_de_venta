@@ -4,7 +4,7 @@ import api from "../api/api";
 import Title from "../components/Title";
 import Table, { type Column } from "../components/Table";
 import { Link } from "react-router-dom";
-import Empty from "./Empty";
+import Empty from "./EmptyMessage";
 //como hacer un tipado de un arreglo de objetos 
 function ProductList() {
     const columns: Column<product>[] = [

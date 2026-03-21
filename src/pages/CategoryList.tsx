@@ -5,7 +5,7 @@ import Title from "../components/Title";
 import Table from "../components/Table";
 import type { Column } from "../components/Table";
 import { Link } from "react-router-dom";
-import Empty from "./Empty";
+import Empty from "./EmptyMessage";
 
 function CategoryList() {
   const columns: Column<category>[] = [
