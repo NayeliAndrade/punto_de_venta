@@ -8,7 +8,6 @@ function Login() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(formData);
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
