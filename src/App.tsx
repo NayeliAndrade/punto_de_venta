@@ -11,6 +11,7 @@ import LayoutLogin from "./layout/LayoutLogin"
 import EditCategory from "./pages/EditCategory"
 import EditProduct from "./pages/EditProduct"
 import UserList from "./pages/UserList"
+import EditUser from "./pages/EditUser"
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
       <Route path="/editCategory/:id" element={<Layout><EditCategory /></Layout>} />
       <Route path="/deleteCategory/:id" element={<Layout><EditCategory /></Layout>} />
       <Route path="/userList" element={<Layout><UserList /></Layout>} />
+      <Route path="/editUser/:id" element={<Layout><EditUser /></Layout>} />
       <Route path="/pay" element={<Layout><Pay /></Layout>} />
     </Routes>
   )
