@@ -13,7 +13,6 @@ function AddUser() {
     }
 
     const navigate = useNavigate();
-
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         //fromData es la informacion que se recibe desde el formulario
         //console.log(formData);
@@ -21,12 +20,13 @@ function AddUser() {
         api.post('/users', {
             id: generateUuid(),
             name: formData.name,
-            email: formData.email,
+            email: formData.email.toLowerCase(),
             password: formData.password
         }).then(res => {
             const data = res.data;
             // muestra la respuesta del backend en la consola
             console.log(data);
+
             navigate("/user/list");
             //muestra un mensaje de exito en la consola
         }).catch(err => {
@@ -44,7 +44,9 @@ function AddUser() {
             //copia el estado anterior
             ...prevState,
             [name]: value
+
         }));
+
         //console.log(name, value);
 
     }
