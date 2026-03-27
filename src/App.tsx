@@ -10,20 +10,24 @@ import Layout from "./layout/Layout"
 import LayoutLogin from "./layout/LayoutLogin"
 import EditCategory from "./pages/EditCategory"
 import EditProduct from "./pages/EditProduct"
+import UserList from "./pages/UserList"
+import EditUser from "./pages/EditUser"
 
 function App() {
 
   return (
     <Routes>
       <Route path="/login" element={<LayoutLogin><Login /></LayoutLogin>} />
-      <Route path="/addProduct" element={<Layout><AddProduct /></Layout >} />
-      <Route path="/productList" element={<Layout><ProductList /></Layout>} />
-      <Route path="/editProduct/:id" element={<Layout><EditProduct /></Layout>} />
-      <Route path="/addUser" element={<Layout><AddUser /></Layout>} />
-      <Route path="/addCategory" element={<Layout><AddCategory /></Layout>} />
-      <Route path="/categoryList" element={<Layout><CategoryList /></Layout>} />
-      <Route path="/editCategory/:id" element={<Layout><EditCategory /></Layout>} />
-      <Route path="/deleteCategory/:id" element={<Layout><EditCategory /></Layout>} />
+      <Route path="/product/add" element={<Layout><AddProduct /></Layout >} />
+      <Route path="/product/list" element={<Layout><ProductList /></Layout>} />
+      <Route path="/product/edit/:id" element={<Layout><EditProduct /></Layout>} />
+      <Route path="/user/add" element={<Layout><AddUser /></Layout>} />
+      <Route path="/category/add" element={<Layout><AddCategory /></Layout>} />
+      <Route path="/category/list" element={<Layout><CategoryList /></Layout>} />
+      <Route path="/category/edit/:id" element={<Layout><EditCategory /></Layout>} />
+      <Route path="/category/delete/:id" element={<Layout><EditCategory /></Layout>} />
+      <Route path="/user/list" element={<Layout><UserList /></Layout>} />
+      <Route path="/user/edit/:id" element={<Layout><EditUser /></Layout>} />
       <Route path="/pay" element={<Layout><Pay /></Layout>} />
     </Routes>
   )

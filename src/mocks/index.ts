@@ -2,9 +2,6 @@ import MockAdapter from "axios-mock-adapter";
 import api from "../api/api";
 
 const mock = new MockAdapter(api, { delayResponse: 500 });
-//mejorar los formularios y las tablas 
-//modal para borrar 
-
 /* ================= CATEGORIES ================= */
 const generateUuid = ()=>{
     return crypto.randomUUID();
@@ -22,9 +19,7 @@ mock.onPost("/categories").reply((config) => {
   categories.push(JSON.parse(config.data));
   return [201, { categories }];
 });
-///funcion que retorna un index de un string
-//0,1,2 
-//uuid
+
 mock.onPut(/\/categories\/.+/).reply((config) => {
   const id = config.url!.split("/").pop();
   const updatedCategory = JSON.parse(config.data);
@@ -121,6 +116,45 @@ mock.onDelete(/\/products\/.+/).reply((config) => {
   }
 
   return [404, { message: "Product not found" }];
+});
+
+/* ================= USERS ================= */
+
+const users = [
+  { id: generateUuid(), name: "Juan Reyes", email: "juan@example.com" },
+  { id: generateUuid(), name: "Camila Perez", email: "camila@example.com" },
+];
+
+mock.onGet("/users").reply(200, { users });
+
+mock.onPost("/users").reply((config) => {
+  users.push(JSON.parse(config.data));
+  return [201, { users }];
+});
+
+mock.onPut(/\/users\/.+/).reply((config) => {
+  const id = config.url!.split("/").pop();
+  const updatedUser = JSON.parse(config.data);
+  const index = users.findIndex((u) => String(u.id) === String(id));
+  if (index !== -1) {
+    users[index] = { ...users[index], ...updatedUser };
+    return [200, { user: users[index] }];
+  } else {
+    return [404, { message: "User not found" }];
+  }
+});
+
+mock.onDelete(/\/users\/.+/).reply((config) => {
+  const id = config.url?.split("/").pop();
+
+  const index = users.findIndex(u => String(u.id) === String(id));
+
+  if (index !== -1) {
+    users.splice(index, 1);
+    return [200, { message: "User deleted" }];
+  }
+
+  return [404, { message: "User not found" }];
 });
 
 export default mock;

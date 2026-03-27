@@ -34,10 +34,8 @@ function ProductList() {
         api.get("/products")
             .then(res => {
                 const data = res.data?.products;
-                console.log(data);
                 setProducts(Array.isArray(data) ? data : []);
-            }).catch(err => {
-                console.log(err);
+            }).catch(() => {
                 setProducts([]);
             })
     }, []);
@@ -47,7 +45,10 @@ function ProductList() {
             .then(() => {
                 setProducts(prev => prev.filter(p => String(p.id) !== String(id)));
             })
-            .catch(err => console.error(err));
+            .catch(() => {
+                setProducts([]);
+            });
+
     };
 
     return (
@@ -55,18 +56,20 @@ function ProductList() {
             <div className="w-full min-h-screen p-6">
                 <div className="flex justify-between items-center mb-4">
                     <Title text="Lista de productos" />
-                    <Link to="/addProduct" className="block p-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200">
+                    <Link to="/product/add" className="block p-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200">
                         Agregar producto
                     </Link >
                 </div>
                 {products.length === 0 ? (
                     <Empty mensaje="No hay productos disponibles." />
-                ) : <Table
-                    data={products}
-                    columns={columns}
-                    onDelete={handleDelete}
-                    getEditLink={(row) => `/editProduct/${row.id}`}
-                />}
+                ) : (
+                    <Table
+                        data={products}
+                        columns={columns}
+                        onDelete={handleDelete}
+                        getEditLink={(row) => `/product/edit/${row.id}`}
+                    />
+                )}
             </div>
         </>
     )

@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 
 const LayoutLogin = ({ children }: { children: React.ReactNode }) => {
     return (
-
-
         <div className="bg-gray-100">
             <div className="min-h-screen flex flex-col">
                 <header className="bg-white shadow-md flex items-center justify-between px-6 py-3">
@@ -21,7 +19,6 @@ const LayoutLogin = ({ children }: { children: React.ReactNode }) => {
                         <Link to="/login" className="hover:text-blue-500 transition"> Inicio</Link>
                     </nav>
                 </header>
-
                 <main className="flex-1 flex items-center justify-center">
                     <div className="bg-white shadow-lg rounded-xl text-center">
                         {children}
@@ -29,7 +26,6 @@ const LayoutLogin = ({ children }: { children: React.ReactNode }) => {
                 </main>
             </div>
         </div>
-
     )
 }
 

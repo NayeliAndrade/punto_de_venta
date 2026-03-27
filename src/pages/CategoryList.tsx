@@ -18,21 +18,14 @@ function CategoryList() {
       accessor: "category"
     }
   ];
-  // estado para almacenar las categorias
   const [categories, setCategories] = useState<category[]>([]);
-  //simula la carga de categorias, haciendo la peticion al backend
   useEffect(() => {
-    //obtiene las categorias desde el backend
     api.get("/categories")
-      //almacena las categorias en el estado
       .then(res => {
-        //asegura que los datos sean un array antes de setear el estado
         const data = res.data?.categories;
-        console.log(data);
         setCategories(Array.isArray(data) ? data : []);
       })
-      .catch(err => {
-        console.log(err);
+      .catch(() => {
         setCategories([]);
       });
   }, []);
@@ -47,23 +40,25 @@ function CategoryList() {
   };
 
   return (
-    // muestra la lista de categorias
     <div className="w-full min-h-screen p-6">
       <div className="flex justify-between items-center mb-4">
         <Title text="Lista de categorias" />
-        <Link to="/addCategory" className="block p-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200">
+        <Link to="/category/add" className="block p-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200">
           Agregar categoría
         </Link >
       </div>
       {categories.length === 0 ? (
         <Empty mensaje="No hay categorías disponibles" />
-      ) : <Table
-        data={categories}
-        columns={columns}
-        onDelete={handleDelete}
-        getEditLink={(row) => `/editCategory/${row.id}`}
-      />}
+      ) : (
+        <Table
+          data={categories}
+          columns={columns}
+          onDelete={handleDelete}
+          getEditLink={(row) => `/category/edit/${row.id}`}
+        />
+      )}
     </div>
-  );
+  )
 }
+
 export default CategoryList;
