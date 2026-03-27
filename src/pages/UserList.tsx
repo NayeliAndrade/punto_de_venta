@@ -17,10 +17,8 @@ function UserList() {
         api.get("/users")
             .then(res => {
                 const data = res.data?.users;
-                console.log(data)
                 setUser(Array.isArray(data) ? data : [])
-            }).catch(err => {
-                console.log(err);
+            }).catch(() => {
                 setUser([]);
             })
     }, [])

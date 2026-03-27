@@ -11,8 +11,6 @@ function EditProduct() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({ id: "", sku: "", product: "", description: "", price: 0, cost: 0, iva: 0, data_expiration: "", unit_measure: "", image_product: "" });
     const { id } = useParams<{ id: string }>();
-    //const newGuid = crypto.randomUUID();
-
     useEffect(() => {
         if (id) {
             api.get("/products")
@@ -40,13 +38,7 @@ function EditProduct() {
                 .catch(err => console.error(err));
         }
     }, [id]);
-    // maneja el estado del formulario
-
-    //es la funcion que maneja el submit del formulario
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        //fromData es la informacion que se recibe desde el formulario
-        //console.log(formData);
-        //envia la informacion al backend, agregando una nueva categoria
         api.put(`/products/${formData.id}`, {
             id: formData.id,
             sku: formData.sku,
@@ -59,36 +51,23 @@ function EditProduct() {
             unit_measure: formData.unit_measure,
             image_product: formData.image_product
 
-        }).then(res => {
-            const data = res.data;
-            // muestra la respuesta del backend en la consola
-            console.log(data);
+        }).then(() => {
             navigate("/product/list");
-            //muestra un mensaje de exito en la consola
-        }).catch(err => {
-            //muestra si hay un error en la consola
-            console.error(err);
+        }).catch(() => {
+            navigate("/product/list");
         });
         e.preventDefault();
     }
-    //maneja el cambio en el input del formulario
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        //obtiene el nombre y el valor del input que se esta modificando
         const { name, value } = e.target;
-        //actualiza el estado del formulario con el nuevo valor
         setFormData(prevState => ({
-            //copia el estado anterior
             ...prevState,
             [name]: value
         }));
-        //console.log(name, value);
-
     }
 
     return (
         <>
-            {/* formulario para agregar una nueva categoria */}
-
             <form className="w-full max-w-2xl p-6 bg-white rounded-lg shadow-md" onSubmit={handleSubmit}>
                 <Title text="Editar Producto" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -168,7 +147,6 @@ function EditProduct() {
                     <Button text="Editar" type="submit" />
                 </div>
             </form>
-
         </>
     )
 }

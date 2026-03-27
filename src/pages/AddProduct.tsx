@@ -22,8 +22,6 @@ function AddProduct() {
     });
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        console.log(formData);
-
         api.post("/products", {
             id: 5,
             sku: formData.sku,
@@ -35,9 +33,7 @@ function AddProduct() {
             price: formData.price,
             cost: formData.cost,
             data_expiration: formData.data_expiration
-        }).then(res => {
-            const data = res.data;
-            console.log(data);
+        }).then(() => {
             navigate("/product/list");
         }).catch(err => {
             console.log(err);

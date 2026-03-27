@@ -10,29 +10,20 @@ function AddCategory() {
     }
 
     const navigate = useNavigate();
-    // maneja el estado del formulario
     const [formData, setFormData] = useState({ id: "", category: "" });
-    //es la funcion que maneja el submit del formulario
+
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        //fromData es la informacion que se recibe desde el formulario
-        //console.log(formData);
-        //envia la informacion al backend, agregando una nueva categoria
         api.post('/categories', {
             id: generateUuid(),
             category: formData.category
-        }).then(res => {
-            const data = res.data;
-            // muestra la respuesta del backend en la consola
-            console.log(data);
+        }).then(() => {
             navigate("/category/list");
-            //muestra un mensaje de exito en la consola
         }).catch(err => {
-            //muestra si hay un error en la consola
             console.error(err);
         });
         e.preventDefault();
     }
-    //maneja el cambio en el input del formulario
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         //obtiene el nombre y el valor del input que se esta modificando
         const { name, value } = e.target;
@@ -42,13 +33,11 @@ function AddCategory() {
             ...prevState,
             [name]: value
         }));
-        //console.log(name, value);
 
     }
 
     return (
         <>
-            {/* formulario para agregar una nueva categoria */}
             <div className="w-full max-w-md   p-6 rounded-lg shadow-md bg-white">
                 <Title text="Agregar categoria" />
                 <Link className="text-blue-600 hover:text-blue-800" to="/category/list">Ir a la lista de categorias</Link>

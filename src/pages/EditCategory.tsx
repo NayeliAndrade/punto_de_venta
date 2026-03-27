@@ -27,46 +27,28 @@ function EditCategory() {
             .catch(err => console.error(err));
 
     }, [id]);
-    // maneja el estado del formulario
 
-    //es la funcion que maneja el submit del formulario
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        //fromData es la informacion que se recibe desde el formulario
-        //console.log(formData);
-        //envia la informacion al backend, agregando una nueva categoria
         api.put(`/categories/${formData.id}`, {
             id: formData.id,
             category: formData.category
-        }).then(res => {
-            const data = res.data;
-            // muestra la respuesta del backend en la consola
-            console.log(data);
+        }).then(() => {
             navigate("/category/list");
-            //muestra un mensaje de exito en la consola
-        }).catch(err => {
-            //muestra si hay un error en la consola
-            console.error(err);
+        }).catch(() => {
+            navigate("/category/list");
         });
         e.preventDefault();
     }
-    //maneja el cambio en el input del formulario
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        //obtiene el nombre y el valor del input que se esta modificando
         const { name, value } = e.target;
-        //actualiza el estado del formulario con el nuevo valor
         setFormData(prevState => ({
-            //copia el estado anterior
             ...prevState,
             [name]: value
         }));
-        //console.log(name, value);
-
     }
 
     return (
         <>
-            {/* formulario para agregar una nueva categoria */}
-
             <div className="w-100  p-6  bg-white rounded-lg shadow-sm">
                 <Title text="Editar categoria" />
                 <form className="flex flex-col sm:flex-row gap-3 p-4" onSubmit={handleSubmit}>
@@ -80,7 +62,6 @@ function EditCategory() {
                     <Button text="Guardar" type="submit" />
                 </form>
             </div>
-
         </>
     )
 }

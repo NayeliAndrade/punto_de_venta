@@ -28,47 +28,28 @@ function EditUser() {
             .catch(err => console.error(err));
 
     }, [id]);
-    // maneja el estado del formulario
-
-    //es la funcion que maneja el submit del formulario
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        //fromData es la informacion que se recibe desde el formulario
-        //console.log(formData);
-        //envia la informacion al backend, agregando una nueva categoria
         api.put(`/users/${formData.id}`, {
             id: formData.id,
             name: formData.name,
             email: formData.email
-        }).then(res => {
-            const data = res.data;
-            // muestra la respuesta del backend en la consola
-            console.log(data);
+        }).then(() => {
             navigate("/user/list");
-            //muestra un mensaje de exito en la consola
-        }).catch(err => {
-            //muestra si hay un error en la consola
-            console.error(err);
+        }).catch(() => {
+            navigate("/user/list");
         });
         e.preventDefault();
     }
-    //maneja el cambio en el input del formulario
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        //obtiene el nombre y el valor del input que se esta modificando
         const { name, value } = e.target;
-        //actualiza el estado del formulario con el nuevo valor
         setFormData(prevState => ({
-            //copia el estado anterior
             ...prevState,
             [name]: value
         }));
-        //console.log(name, value);
-
     }
 
     return (
         <>
-            {/* formulario para agregar una nueva categoria */}
-
             <div className="w-100  p-6  bg-white rounded-lg shadow-sm gap-4">
                 <Title text="Editar usuario" />
                 <form className="flex flex-row sm:flex-col gap-3 mt-3" onSubmit={handleSubmit}>
@@ -89,7 +70,6 @@ function EditUser() {
                     <Button text="Guardar" type="submit" />
                 </form>
             </div>
-
         </>
     )
 }
