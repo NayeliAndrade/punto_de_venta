@@ -38,7 +38,7 @@ function AddProduct() {
         }).then(res => {
             const data = res.data;
             console.log(data);
-            navigate("/productList");
+            navigate("/product/list");
         }).catch(err => {
             console.log(err);
         })
@@ -59,7 +59,7 @@ function AddProduct() {
         <>
             <form className="w-full max-w-2xl p-6 bg-white rounded-lg shadow-md" onSubmit={handleSubmit}>
                 <Title text="Nuevo producto" />
-                <Link to="/productList" className="text-blue-600 hover:text-blue-800">Volver a la lista de productos</Link>
+                <Link to="/product/list" className="text-blue-600 hover:text-blue-800">Volver a la lista de productos</Link>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Input
                         type="text"

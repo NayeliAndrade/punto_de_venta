@@ -55,7 +55,7 @@ function ProductList() {
             <div className="w-full min-h-screen p-6">
                 <div className="flex justify-between items-center mb-4">
                     <Title text="Lista de productos" />
-                    <Link to="/addProduct" className="block p-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200">
+                    <Link to="/product/add" className="block p-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200">
                         Agregar producto
                     </Link >
                 </div>
@@ -65,8 +65,8 @@ function ProductList() {
                     data={products}
                     columns={columns}
                     onDelete={handleDelete}
-                    getEditLink={(row) => `/editProduct/${row.id}`}
-                />}
+                    getEditLink={(row) => `/product/edit/${row.id}`}
+                />
             </div>
         </>
     )

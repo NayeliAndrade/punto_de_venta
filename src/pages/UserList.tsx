@@ -37,7 +37,7 @@ function UserList() {
             <div className="w-full min-h-screen p-6">
                 <div className="flex justify-between items-center mb-4">
                     <Title text="Lista de Usuarios" />
-                    <Link to="/addUser" className="block p-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200">
+                    <Link to="/user/add" className="block p-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200">
                         Agregar usuario
                     </Link >
                 </div>
@@ -46,7 +46,7 @@ function UserList() {
                     data={user}
                     columns={columns}
                     onDelete={handleDelete}
-                    getEditLink={(row) => `/editUser/${row.id}`}
+                    getEditLink={(row) => `/user/edit/${row.id}`}
                 />
             </div>
         </>

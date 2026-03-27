@@ -24,7 +24,7 @@ function AddCategory() {
             const data = res.data;
             // muestra la respuesta del backend en la consola
             console.log(data);
-            navigate("/categoryList");
+            navigate("/category/list");
             //muestra un mensaje de exito en la consola
         }).catch(err => {
             //muestra si hay un error en la consola
@@ -51,7 +51,7 @@ function AddCategory() {
             {/* formulario para agregar una nueva categoria */}
             <div className="w-full max-w-md   p-6 rounded-lg shadow-md bg-white">
                 <Title text="Agregar categoria" />
-                <Link className="text-blue-600 hover:text-blue-800" to="/categoryList">Ir a la lista de categorias</Link>
+                <Link className="text-blue-600 hover:text-blue-800" to="/category/list">Ir a la lista de categorias</Link>
                 <form className="flex flex-col sm:flex-row gap-3 p-4" onSubmit={handleSubmit}>
                     <Input
                         type="text"

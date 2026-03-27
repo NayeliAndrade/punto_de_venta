@@ -63,7 +63,7 @@ function EditProduct() {
             const data = res.data;
             // muestra la respuesta del backend en la consola
             console.log(data);
-            navigate("/productList");
+            navigate("/product/list");
             //muestra un mensaje de exito en la consola
         }).catch(err => {
             //muestra si hay un error en la consola

@@ -43,7 +43,7 @@ function EditUser() {
             const data = res.data;
             // muestra la respuesta del backend en la consola
             console.log(data);
-            navigate("/userList");
+            navigate("/user/list");
             //muestra un mensaje de exito en la consola
         }).catch(err => {
             //muestra si hay un error en la consola

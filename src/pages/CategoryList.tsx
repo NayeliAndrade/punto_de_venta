@@ -51,7 +51,7 @@ function CategoryList() {
     <div className="w-full min-h-screen p-6">
       <div className="flex justify-between items-center mb-4">
         <Title text="Lista de categorias" />
-        <Link to="/addCategory" className="block p-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200">
+        <Link to="/category/add" className="block p-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200">
           Agregar categoría
         </Link >
       </div>
@@ -61,8 +61,8 @@ function CategoryList() {
         data={categories}
         columns={columns}
         onDelete={handleDelete}
-        getEditLink={(row) => `/editCategory/${row.id}`}
-      />}
+        getEditLink={(row) => `/category/edit/${row.id}`}
+      />
     </div>
   );
 }
