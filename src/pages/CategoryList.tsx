@@ -5,6 +5,7 @@ import Title from "../components/Title";
 import Table from "../components/Table";
 import type { Column } from "../components/Table";
 import { Link } from "react-router-dom";
+import Empty from "./EmptyMessage";
 
 function CategoryList() {
   const columns: Column<category>[] = [
@@ -54,12 +55,14 @@ function CategoryList() {
           Agregar categoría
         </Link >
       </div>
-      <Table
+      {categories.length === 0 ? (
+        <Empty mensaje="No hay categorías disponibles" />
+      ) : <Table
         data={categories}
         columns={columns}
         onDelete={handleDelete}
         getEditLink={(row) => `/editCategory/${row.id}`}
-      />
+      />}
     </div>
   );
 }
