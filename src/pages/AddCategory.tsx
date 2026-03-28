@@ -1,26 +1,23 @@
 import { useState } from "react";
-import api from "../api/api";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Title from "../components/Title";
 import Input from "../components/Input";
+import useCategories from "../hooks/useCategories";
+
 function AddCategory() {
-    const generateUuid = () => {
-        return crypto.randomUUID();
-    }
+    const { createCategory } = useCategories();
 
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({ id: "", category: "" });
+    const [formData, setFormData] = useState({ category: "" });
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        api.post('/categories', {
-            id: generateUuid(),
-            category: formData.category
-        }).then(() => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        try {
+            await createCategory({ ...formData });
             navigate("/category/list");
-        }).catch(err => {
-            console.error(err);
-        });
+        } catch (error) {
+            console.error("Error creating category:", error);
+        }
         e.preventDefault();
     }
 
