@@ -1,10 +1,10 @@
 export type product = {
-        id: number,
+        id: string,
         sku: string,
         product: string,
         image_product: string,
         description: string,
-        unit_measure: string,
+        unit_measure: number,
         iva: number,
         price: number,
         cost: number,
