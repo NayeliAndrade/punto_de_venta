@@ -5,7 +5,7 @@ export type product = {
         image_product: string,
         description: string,
         unit_measure: number,
-        iva: number,
+        VAT: number,
         price: number,
         cost: number,
         data_expiration: string

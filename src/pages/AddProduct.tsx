@@ -16,7 +16,7 @@ function AddProduct() {
         image_product: "",
         description: "",
         unit_measure: 0,
-        iva: 0,
+        VAT: 0,
         price: 0,
         cost: 0,
         data_expiration: ""
@@ -82,10 +82,10 @@ function AddProduct() {
 
                     <Input
                         type="number"
-                        placeholder="Ingresar IVA"
-                        name="iva"
+                        placeholder="Ingresar VAT"
+                        name="VAT"
                         onChange={handleChange}
-                        value={formData.iva}
+                        value={formData.VAT}
                     />
 
                     <Input

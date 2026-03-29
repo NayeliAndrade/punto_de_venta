@@ -23,7 +23,7 @@ function ProductList() {
         },
         { header: "Descripción", accessor: "description" },
         { header: "Unidad de medida", accessor: "unit_measure" },
-        { header: "IVA", accessor: "iva" },
+        { header: "VAT", accessor: "VAT" },
         { header: "Costo", accessor: "cost" },
         { header: "Fecha de expiración", accessor: "data_expiration" }
     ];
