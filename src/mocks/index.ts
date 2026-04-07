@@ -1,5 +1,5 @@
 import MockAdapter from "axios-mock-adapter";
-import api from "../api/api";
+import api from "../api";
 
 const mock = new MockAdapter(api, { delayResponse: 500 });
 /* ================= CATEGORIES ================= */
