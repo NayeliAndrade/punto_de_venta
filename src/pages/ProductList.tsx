@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { product } from "../types/product";
-import api from "../api/api";
+import api from "../api";
 import Title from "../components/Title";
 import Table, { type Column } from "../components/Table";
 import { Link } from "react-router-dom";

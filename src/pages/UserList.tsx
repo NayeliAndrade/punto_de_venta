@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import Title from "../components/Title"
 import { useEffect, useState } from "react";
 import type { UserProps } from "../types/UserProps";
-import api from "../api/api";
+import api from "../api";
 
 function UserList() {
     const columns: Column<UserProps>[] = [

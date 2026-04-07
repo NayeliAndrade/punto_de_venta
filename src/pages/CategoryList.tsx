@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { category } from "../types/category";
-import api from "../api/api";
+import api from "../api";
 import Title from "../components/Title";
 import Table from "../components/Table";
 import type { Column } from "../components/Table";

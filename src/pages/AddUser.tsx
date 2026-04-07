@@ -3,7 +3,7 @@ import Input from "../components/Input";
 import Title from "../components/Title";
 import Button from "../components/Button";
 import { useState } from "react";
-import api from "../api/api";
+import api from "../api";
 import { Link, useNavigate } from "react-router-dom";
 
 function AddUser() {
