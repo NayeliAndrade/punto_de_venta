@@ -3,36 +3,21 @@ import Input from "../components/Input";
 import Title from "../components/Title";
 import Button from "../components/Button";
 import { useState } from "react";
-import api from "../api/api";
 import { Link, useNavigate } from "react-router-dom";
+import useUsers from "../hooks/useUsers";
 
 function AddUser() {
-    const [formData, setFormData] = useState({ id: "", name: "", email: "", password: "" });
-    const generateUuid = () => {
-        return crypto.randomUUID();
-    }
+    const { createUsers } = useUsers();
+    const [formData, setFormData] = useState({ name: "", email: "", password: "" });
 
     const navigate = useNavigate();
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        //fromData es la informacion que se recibe desde el formulario
-        //console.log(formData);
-        //envia la informacion al backend, agregando una nueva categoria
-        api.post('/users', {
-            id: generateUuid(),
-            name: formData.name,
-            email: formData.email.toLowerCase(),
-            password: formData.password
-        }).then(res => {
-            const data = res.data;
-            // muestra la respuesta del backend en la consola
-            console.log(data);
-
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        try {
+            await createUsers({ ...formData });
             navigate("/user/list");
-            //muestra un mensaje de exito en la consola
-        }).catch(err => {
-            //muestra si hay un error en la consola
-            console.error(err);
-        });
+        } catch (error) {
+            console.error("Error creating user:", error);
+        }
         e.preventDefault();
     }
 

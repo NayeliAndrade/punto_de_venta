@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import api from "../api/api";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Title from "../components/Title";
 import Input from "../components/Input";
+import useProducts from "../hooks/useProducts";
 
 function AddProduct() {
     const navigate = useNavigate();
+    const { createProduct } = useProducts();
 
     const [formData, setFormData] = useState({
         id: "",
@@ -14,37 +15,25 @@ function AddProduct() {
         product: "",
         image_product: "",
         description: "",
-        unit_measure: "",
-        iva: "",
-        price: "",
-        cost: "",
+        unit_measure: 0,
+        VAT: 0,
+        price: 0,
+        cost: 0,
         data_expiration: ""
     });
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        api.post("/products", {
-            id: 5,
-            sku: formData.sku,
-            product: formData.product,
-            image_product: formData.image_product,
-            description: formData.description,
-            unit_measure: formData.unit_measure,
-            iva: formData.iva,
-            price: formData.price,
-            cost: formData.cost,
-            data_expiration: formData.data_expiration
-        }).then(() => {
-            navigate("/product/list");
-        }).catch(err => {
-            console.log(err);
-        })
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        try {
+            await createProduct({ ...formData });
+            navigate("/product/list");
+        } catch (error) {
+            console.error("Error creating product:", error);
+        }
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, files } = e.target;
-        console.log(name, value, type, files);
-
         setFormData(prevState => ({
             ...prevState,
             [name]: type === "file" ? (files ? files[0].name : "") : value
@@ -91,10 +80,10 @@ function AddProduct() {
 
                     <Input
                         type="number"
-                        placeholder="Ingresar IVA"
-                        name="iva"
+                        placeholder="Ingresar VAT"
+                        name="VAT"
                         onChange={handleChange}
-                        value={formData.iva}
+                        value={formData.VAT}
                     />
 
                     <Input

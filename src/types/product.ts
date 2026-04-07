@@ -1,11 +1,11 @@
 export type product = {
-        id: number,
+        id: string,
         sku: string,
         product: string,
         image_product: string,
         description: string,
-        unit_measure: string,
-        iva: number,
+        unit_measure: number,
+        VAT: number,
         price: number,
         cost: number,
         data_expiration: string

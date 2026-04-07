@@ -9,7 +9,7 @@ import Input from "../components/Input";
 
 function EditProduct() {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({ id: "", sku: "", product: "", description: "", price: 0, cost: 0, iva: 0, data_expiration: "", unit_measure: "", image_product: "" });
+    const [formData, setFormData] = useState({ id: "", sku: "", product: "", description: "", price: 0, cost: 0, VAT: 0, data_expiration: "", unit_measure: "", image_product: "" });
     const { id } = useParams<{ id: string }>();
     useEffect(() => {
         if (id) {
@@ -27,7 +27,7 @@ function EditProduct() {
                             description: product.description,
                             price: product.price,
                             cost: product.cost,
-                            iva: product.iva,
+                            VAT: product.VAT,
                             data_expiration: product.data_expiration,
                             unit_measure: product.unit_measure,
                             image_product: product.image_product
@@ -46,7 +46,7 @@ function EditProduct() {
             description: formData.description,
             price: formData.price,
             cost: formData.cost,
-            iva: formData.iva,
+            VAT: formData.VAT,
             data_expiration: formData.data_expiration,
             unit_measure: formData.unit_measure,
             image_product: formData.image_product
@@ -105,10 +105,10 @@ function EditProduct() {
 
                     <Input
                         type="number"
-                        placeholder="Ingresar IVA"
-                        name="iva"
+                        placeholder="Ingresar VAT"
+                        name="VAT"
                         onChange={handleChange}
-                        value={String(formData.iva)}
+                        value={String(formData.VAT)}
                     />
 
                     <Input
