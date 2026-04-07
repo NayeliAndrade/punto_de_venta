@@ -6,19 +6,22 @@ import Input from "../components/Input";
 import useCategories from "../hooks/useCategories";
 
 function AddCategory() {
+    const navigate = useNavigate();
     const { createCategory } = useCategories();
 
-    const navigate = useNavigate();
-    const [formData, setFormData] = useState({ category: "" });
+
+    const [formData, setFormData] = useState({ id: "", category: "" });
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         try {
-            await createCategory({ ...formData });
+            const newCategory = { ...formData, id: crypto.randomUUID() };
+            await createCategory(newCategory);
             navigate("/category/list");
         } catch (error) {
             console.error("Error creating category:", error);
         }
-        e.preventDefault();
+
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -34,8 +34,6 @@ function AddProduct() {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, files } = e.target;
-        console.log(name, value, type, files);
-
         setFormData(prevState => ({
             ...prevState,
             [name]: type === "file" ? (files ? files[0].name : "") : value
