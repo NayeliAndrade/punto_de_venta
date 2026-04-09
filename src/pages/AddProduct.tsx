@@ -1,122 +1,142 @@
-import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Title from "../components/Title";
 import Input from "../components/Input";
 import useProducts from "../hooks/useProducts";
+import type { product } from "../types/product";
+import { useForm } from "react-hook-form";
 
 function AddProduct() {
     const navigate = useNavigate();
     const { createProduct } = useProducts();
+    const { register, handleSubmit, formState: { errors } } = useForm<product>();
 
-    const [formData, setFormData] = useState({
-        id: "",
-        sku: "",
-        product: "",
-        image_product: "",
-        description: "",
-        unit_measure: 0,
-        VAT: 0,
-        price: 0,
-        cost: 0,
-        data_expiration: ""
-    });
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const onSubmit = async (data: product) => {
         try {
-            await createProduct({ ...formData });
+            await createProduct({ ...data });
             navigate("/product/list");
         } catch (error) {
             console.error("Error creating product:", error);
         }
     }
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value, type, files } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: type === "file" ? (files ? files[0].name : "") : value
-        }));
-    }
-
     return (
         <>
-            <form className="w-full max-w-2xl p-6 bg-white rounded-lg shadow-md" onSubmit={handleSubmit}>
+            <form className="w-full max-w-2xl p-6 bg-white rounded-lg shadow-md" onSubmit={handleSubmit(onSubmit)}>
                 <Title text="Nuevo producto" />
                 <Link to="/product/list" className="text-blue-600 hover:text-blue-800">Volver a la lista de productos</Link>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Input
                         type="text"
                         placeholder="Ingresar sku"
-                        name="sku"
-                        onChange={handleChange}
-                        value={formData.sku}
+                        {...register("sku", { required: true, maxLength: 20, pattern: /^[a-zA-Z0-9\s]+$/ })}
                     />
-
+                    {errors.sku && (
+                        <p className="text-red-500">
+                            {errors.sku.type === "required" && "el sku es requerido"}
+                            {errors.sku.type === "maxLength" && "Máximo 20 caracteres"}
+                            {errors.sku.type === "pattern" && "Solo letras y números"}
+                        </p>
+                    )}
                     <Input
                         type="text"
                         placeholder="Ingresar producto"
-                        name="product"
-                        onChange={handleChange}
-                        value={formData.product}
+                        {...register("product", { required: true, maxLength: 30, pattern: /^[a-zA-Z0-9\s]+$/ })}
                     />
-
+                    {errors.product && (
+                        <p className="text-red-500">
+                            {errors.product.type === "required" && "el producto es requerido"}
+                            {errors.product.type === "maxLength" && "Máximo 30 caracteres"}
+                            {errors.product.type === "pattern" && "Solo letras y números"}
+                        </p>
+                    )}
                     <Input
                         type="text"
                         placeholder="Ingresar descripción"
-                        name="description"
-                        onChange={handleChange}
-                        value={formData.description}
+                        {...register("description", { required: true, maxLength: 100, pattern: /^[a-zA-Z0-9\s]+$/ })}
                     />
-
+                    {errors.description && (
+                        <p className="text-red-500">
+                            {errors.description.type === "required" && "la descripción es requerida"}
+                            {errors.description.type === "maxLength" && "Máximo 100 caracteres"}
+                            {errors.description.type === "pattern" && "Solo letras y números"}
+                        </p>
+                    )}
                     <Input
                         type="number"
                         placeholder="Unidad de medida"
-                        name="unit_measure"
-                        onChange={handleChange}
-                        value={formData.unit_measure}
+                        {...register("unit_measure", { required: true, pattern: /^[0-9]+$/ })}
                     />
-
+                    {errors.unit_measure && (
+                        <p className="text-red-500">
+                            {errors.unit_measure.type === "required" && "la unidad de medida es requerida"}
+                            {errors.unit_measure.type === "pattern" && "Solo números"}
+                        </p>
+                    )}
                     <Input
                         type="number"
                         placeholder="Ingresar VAT"
-                        name="VAT"
-                        onChange={handleChange}
-                        value={formData.VAT}
+                        {...register("VAT", { required: true, maxLength: 3, pattern: /^[0-9]+$/ })}
                     />
-
+                    {errors.VAT && (
+                        <p className="text-red-500">
+                            {errors.VAT.type === "required" && "el VAT es requerido"}
+                            {errors.VAT.type === "maxLength" && "Máximo 3 caracteres"}
+                            {errors.VAT.type === "pattern" && "Solo números"}
+                        </p>
+                    )}
                     <Input
                         type="number"
                         placeholder="Precio de venta"
-                        name="price"
-                        onChange={handleChange}
-                        value={formData.price}
+                        {...register("price", { required: true, pattern: /^[0-9]+$/ })}
                     />
-
+                    {errors.price && (
+                        <p className="text-red-500">
+                            {errors.price.type === "required" && "el precio es requerido"}
+                            {errors.price.type === "pattern" && "Solo números"}
+                        </p>
+                    )}
                     <Input
                         type="number"
                         placeholder="Costo al público"
-                        name="cost"
-                        onChange={handleChange}
-                        value={formData.cost}
+                        {...register("cost", { required: true, pattern: /^[0-9]+$/ })}
                     />
-
+                    {errors.cost && (
+                        <p className="text-red-500">
+                            {errors.cost.type === "required" && "el costo es requerido"}
+                            {errors.cost.type === "pattern" && "Solo números"}
+                        </p>
+                    )}
                     <Input
                         type="date"
                         placeholder="fecha de expiracion"
-                        name="data_expiration"
-                        onChange={handleChange}
-                        value={String(formData.data_expiration)}
+                        {...register("data_expiration", { required: true })}
                     />
+                    {errors.data_expiration && (
+                        <p className="text-red-500">
+                            {errors.data_expiration.type === "required" && "la fecha de expiración es requerida"}
+                        </p>
+                    )}
                     <div className="md:col-span-2">
                         <label className="block text-sm text-gray-500 mb-1">Imagen del producto</label>
                         <Input
-                            value={formData.image_product}
                             type="file"
-                            name="image_product"
-                            onChange={handleChange}
+                            {...register("image_product", {
+                                required: "La imagen es requerida",
+                                validate: {
+                                    fileSize: (files: FileList) =>
+                                        files?.[0]?.size < 2 * 1024 * 1024 || "Máximo 2MB",
+                                    fileType: (files: FileList) =>
+                                        ["image/jpeg", "image/png"].includes(files?.[0]?.type) ||
+                                        "Solo JPG o PNG"
+                                }
+                            })}
                         />
+                        {errors.image_product && (
+                            <p className="text-red-500 text-sm mt-1">
+                                {errors.image_product.message}
+                            </p>
+                        )}
                     </div>
                 </div>
 
