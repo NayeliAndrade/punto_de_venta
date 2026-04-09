@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -6,11 +6,12 @@ import type { category } from "../types/category";
 import Button from "../components/Button";
 import Title from "../components/Title";
 import Input from "../components/Input";
+import { useForm } from "react-hook-form";
 
 function EditCategory() {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({ id: "", category: "" });
     const { id } = useParams<{ id: string }>();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<category>();
     useEffect(() => {
         api.get("/categories")
             .then(res => {
@@ -18,47 +19,43 @@ function EditCategory() {
                     (c: category) => String(c.id) === String(id)
                 );
                 if (category) {
-                    setFormData({
-                        id: String(category.id),
-                        category: category.category
-                    });
+                    reset(category);
                 }
             })
             .catch(err => console.error(err));
 
-    }, [id]);
+    }, [id, reset]);
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        api.put(`/categories/${formData.id}`, {
-            id: formData.id,
-            category: formData.category
+    const onSubmit = (data: category) => {
+        api.put(`/categories/${data.id}`, {
+            id: data.id,
+            category: data.category
         }).then(() => {
             navigate("/category/list");
         }).catch(() => {
             navigate("/category/list");
         });
-        e.preventDefault();
-    }
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
     }
 
     return (
         <>
             <div className="w-100  p-6  bg-white rounded-lg shadow-sm">
                 <Title text="Editar categoria" />
-                <form className="flex flex-col sm:flex-row gap-3 p-4" onSubmit={handleSubmit}>
-                    <Input
-                        placeholder="Ingresa la categoria"
-                        name="category"
-                        value={formData.category}
-                        onChange={handleChange}
-                        type="text"
-                    />
+                <form className="flex flex-col sm:flex-row gap-3 p-4" onSubmit={handleSubmit(onSubmit)}>
+                    <div className="flex flex-col w-full">
+                        <Input
+                            {...register("category", { required: true, maxLength: 30, pattern: /^[a-zA-Z0-9\s]+$/ })}
+                            placeholder="Ingresa la categoria"
+                            type="text"
+                        />
+                        {errors.category && (
+                            <p className="text-red-500">
+                                {errors.category.type === "required" && "La categoría es requerida"}
+                                {errors.category.type === "maxLength" && "Máximo 30 caracteres"}
+                                {errors.category.type === "pattern" && "Solo letras y números"}
+                            </p>
+                        )}
+                    </div>
                     <Button text="Guardar" type="submit" />
                 </form>
             </div>

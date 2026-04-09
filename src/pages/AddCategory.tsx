@@ -27,18 +27,20 @@ function AddCategory() {
                 <Title text="Agregar categoria" />
                 <Link className="text-blue-600 hover:text-blue-800" to="/category/list">Ir a la lista de categorias</Link>
                 <form className="flex flex-col sm:flex-row gap-3 p-4" onSubmit={handleSubmit(onSubmit)}>
-                    <Input
-                        {...register("category", { required: true, maxLength: 30, pattern: /^[a-zA-Z0-9\s]+$/ })}
-                        type="text"
-                        placeholder="Ingresa la categoria"
-                    />
-                    {errors.category && (
-                        <p className="text-red-500">
-                            {errors.category.type === "required" && "La categoría es requerida"}
-                            {errors.category.type === "maxLength" && "Máximo 50 caracteres"}
-                            {errors.category.type === "pattern" && "Solo letras y números"}
-                        </p>
-                    )}
+                    <div className="flex flex-col w-full">
+                        <Input
+                            {...register("category", { required: true, maxLength: 30, pattern: /^[a-zA-Z0-9\s]+$/ })}
+                            type="text"
+                            placeholder="Ingresa la categoria"
+                        />
+                        {errors.category && (
+                            <p className="text-red-500">
+                                {errors.category.type === "required" && "La categoría es requerida"}
+                                {errors.category.type === "maxLength" && "Máximo 30 caracteres"}
+                                {errors.category.type === "pattern" && "Solo letras y números"}
+                            </p>
+                        )}
+                    </div>
                     <Button text="Agregar" type="submit" />
                 </form>
             </div>
