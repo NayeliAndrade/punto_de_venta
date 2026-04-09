@@ -1,5 +1,5 @@
 
-import api from "../api/api";
+import api from "../api";
 import type { UserProps } from "../types/UserProps";
 
 const createUsers = async (user: UserProps ) => {    

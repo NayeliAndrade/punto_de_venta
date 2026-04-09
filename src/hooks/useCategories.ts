@@ -1,4 +1,4 @@
-import api from "../api/api";
+import api from "../api";
 import type { category } from "../types/category";
 
 const createCategory = async (category: category) => {
