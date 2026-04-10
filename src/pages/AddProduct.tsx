@@ -63,14 +63,14 @@ function AddProduct() {
                         </p>
                     )}
                     <Input
-                        type="number"
+                        type="text"
                         placeholder="Unidad de medida"
-                        {...register("unit_measure", { required: true, pattern: /^[0-9]+$/ })}
+                        {...register("unit_measure", { required: true, pattern: /^[a-zA-Z0-9\s]+$/ })}
                     />
                     {errors.unit_measure && (
                         <p className="text-red-500">
                             {errors.unit_measure.type === "required" && "la unidad de medida es requerida"}
-                            {errors.unit_measure.type === "pattern" && "Solo números"}
+                            {errors.unit_measure.type === "pattern" && "Solo letras y números"}
                         </p>
                     )}
                     <Input
