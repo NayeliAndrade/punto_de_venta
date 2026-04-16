@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { product } from "../types/product";
+import type { Product } from "../types/Product";
 import api from "../api";
 import Title from "../components/Title";
 import Table, { type Column } from "../components/Table";
@@ -7,13 +7,13 @@ import { Link } from "react-router-dom";
 import Empty from "./EmptyMessage";
 //como hacer un tipado de un arreglo de objetos 
 function ProductList() {
-    const columns: Column<product>[] = [
+    const columns: Column<Product>[] = [
         { header: "Producto", accessor: "product" },
         { header: "Precio", accessor: "price" },
         { header: "SKU", accessor: "sku" },
         {
             header: "Imagen",
-            accessor: (row: product) => (
+            accessor: (row: Product) => (
                 <img
                     src={row.image_product}
                     alt="Imagen del producto"
@@ -28,7 +28,7 @@ function ProductList() {
         { header: "Fecha de expiración", accessor: "data_expiration" }
     ];
 
-    const [products, setProducts] = useState<product[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
 
     useEffect(() => {
         api.get("/products")
