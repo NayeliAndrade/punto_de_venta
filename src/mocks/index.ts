@@ -1,5 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
 import api from "../api";
+import type { category } from "../types/category";
+import type { product } from "../types/product";
 
 const mock = new MockAdapter(api, { delayResponse: 500 });
 /* ================= CATEGORIES ================= */
@@ -7,7 +9,7 @@ const generateUuid = ()=>{
     return crypto.randomUUID();
 }
 
-const categories = [
+const categories : category[] = [
   { id: generateUuid(), category: "electrodomesticos" },
   { id: generateUuid(), category: "lacteos" },
   { id: generateUuid(), category: "carnes" },
@@ -47,7 +49,7 @@ mock.onDelete(/\/categories\/.+/).reply((config) => {
 
 /* ================= PRODUCTS ================= */
 
-const products = [
+const products : product[] = [
   {
         id: generateUuid(),
         sku: "15sud",
