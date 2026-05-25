@@ -1,7 +1,7 @@
 import api from "../api";
-import type { category } from "../types/category";
+import type { Category } from "../types/Category";
 
-const createCategory = async (category: category) => {
+const createCategory = async (category: Category) => {
     try {
         const response = await api.post("/categories", category);
         return response.data;

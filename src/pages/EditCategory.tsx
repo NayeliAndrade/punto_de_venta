@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import type { category } from "../types/category";
+import type { Category } from "../types/Category";
 import Button from "../components/Button";
 import Title from "../components/Title";
 import Input from "../components/Input";
@@ -16,7 +16,7 @@ function EditCategory() {
         api.get("/categories")
             .then(res => {
                 const category = res.data.categories.find(
-                    (c: category) => String(c.id) === String(id)
+                    (c: Category) => String(c.id) === String(id)
                 );
                 if (category) {
                     reset(category);

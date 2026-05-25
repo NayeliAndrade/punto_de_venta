@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { category } from "../types/category";
+import type { Category } from "../types/Category";
 import api from "../api";
 import Title from "../components/Title";
 import Table from "../components/Table";
@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import Empty from "./EmptyMessage";
 
 function CategoryList() {
-  const columns: Column<category>[] = [
+  const columns: Column<Category>[] = [
     {
       header: "ID",
       accessor: "id"
@@ -18,7 +18,7 @@ function CategoryList() {
       accessor: "category"
     }
   ];
-  const [categories, setCategories] = useState<category[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   useEffect(() => {
     api.get("/categories")
       .then(res => {

@@ -1,7 +1,7 @@
 import api from "../api";
-import type { product } from "../types/product";
+import type { Product } from "../types/Product";
 
-const createProduct = async (product: product) => {
+const createProduct = async (product: Product) => {
     try {
         const response = await api.post("/products", product);
         return response.data;

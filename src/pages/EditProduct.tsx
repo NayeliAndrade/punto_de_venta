@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import type { product } from "../types/product";
+import type { Product } from "../types/Product";
 import Button from "../components/Button";
 import Title from "../components/Title";
 import Input from "../components/Input";
@@ -17,7 +17,7 @@ function EditProduct() {
             api.get("/products")
                 .then(res => {
                     const product = res.data.products.find(
-                        (p: product) => String(p.id) === String(id)
+                        (p: Product) => String(p.id) === String(id)
                     );
 
                     if (product) {
