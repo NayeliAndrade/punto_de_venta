@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 function EditCategory() {
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
-    const { register, handleSubmit, reset, formState: { errors } } = useForm<category>();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<Category>();
     useEffect(() => {
         api.get("/categories")
             .then(res => {
@@ -26,7 +26,7 @@ function EditCategory() {
 
     }, [id, reset]);
 
-    const onSubmit = (data: category) => {
+    const onSubmit = (data: Category) => {
         api.put(`/categories/${data.id}`, {
             id: data.id,
             category: data.category

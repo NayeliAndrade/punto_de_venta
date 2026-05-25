@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import type { Product } from "../types/Product";
+import type { Category } from "../types/Category";
 import Button from "../components/Button";
 import Title from "../components/Title";
 import Input from "../components/Input";
@@ -10,7 +11,8 @@ import { useForm } from "react-hook-form";
 
 function EditProduct() {
     const navigate = useNavigate();
-    const { register, handleSubmit, reset, formState: { errors } } = useForm<product>();
+    const [categories, setCategories] = useState<Category[]>([]);
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<Product>();
     const { id } = useParams<{ id: string }>();
     useEffect(() => {
         if (id) {
@@ -28,11 +30,21 @@ function EditProduct() {
         }
     }, [id, reset]);
 
-    const onSubmit = (data: product) => {
+    useEffect(() => {
+        api.get("/categories")
+            .then(res => {
+                const data = res.data.categories;
+                setCategories(Array.isArray(data) ? data : []);
+            })
+            .catch(() => setCategories([]));
+    }, []);
+
+    const onSubmit = (data: Product) => {
         api.put(`/products/${data.id}`, {
             id: data.id,
             sku: data.sku,
             product: data.product,
+            category: data.category,
             description: data.description,
             price: data.price,
             cost: data.cost,
@@ -89,6 +101,23 @@ function EditProduct() {
                             {errors.description.type === "pattern" && "Solo letras y números"}
                         </p>
                     )}
+                    <div className="flex flex-col">
+                        <label className="block text-sm text-gray-500 mb-1">Categoría</label>
+                        <select
+                            {...register("category", { required: true })}
+                            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option value="">Seleccionar categoría</option>
+                            {categories.map((category) => (
+                                <option key={category.id} value={category.category}>
+                                    {category.category}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.category && (
+                            <p className="text-red-500 text-sm mt-1">La categoría es requerida</p>
+                        )}
+                    </div>
                     <Input
                         type="text"
                         placeholder="Unidad de medida"
@@ -151,11 +180,14 @@ function EditProduct() {
                             {...register("image_product", {
                                 required: "La imagen es requerida",
                                 validate: {
-                                    fileSize: (files: FileList) =>
-                                        files?.[0]?.size < 2 * 1024 * 1024 || "Máximo 2MB",
-                                    fileType: (files: FileList) =>
-                                        ["image/jpeg", "image/png"].includes(files?.[0]?.type) ||
-                                        "Solo JPG o PNG"
+                                    fileSize: (files: FileList | string | undefined) => {
+                                        if (!files || typeof files === "string") return "La imagen es requerida";
+                                        return files[0]?.size < 2 * 1024 * 1024 || "Máximo 2MB";
+                                    },
+                                    fileType: (files: FileList | string | undefined) => {
+                                        if (!files || typeof files === "string") return "La imagen es requerida";
+                                        return ["image/jpeg", "image/png"].includes(files[0]?.type) || "Solo JPG o PNG";
+                                    }
                                 }
                             })}
                         />

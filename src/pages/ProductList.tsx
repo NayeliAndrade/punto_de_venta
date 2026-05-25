@@ -9,13 +9,14 @@ import Empty from "./EmptyMessage";
 function ProductList() {
     const columns: Column<Product>[] = [
         { header: "Producto", accessor: "product" },
+        { header: "Categoría", accessor: "category" },
         { header: "Precio", accessor: "price" },
         { header: "SKU", accessor: "sku" },
         {
             header: "Imagen",
             accessor: (row: Product) => (
                 <img
-                    src={row.image_product}
+                    src={typeof row.image_product === "string" ? row.image_product : ""}
                     alt="Imagen del producto"
                     className="w-16 h-16"
                 />

@@ -4,14 +4,14 @@ import Title from "../components/Title";
 import Input from "../components/Input";
 import useCategories from "../hooks/useCategories";
 import { useForm } from "react-hook-form";
-import type { category } from "../types/category";
+import type { Category } from "../types/Category";
 
 function AddCategory() {
     const navigate = useNavigate();
     const { createCategory } = useCategories();
-    const { register, handleSubmit, formState: { errors } } = useForm<category>();
+    const { register, handleSubmit, formState: { errors } } = useForm<Category>();
 
-    const onSubmit = async (data: category) => {
+    const onSubmit = async (data: Category) => {
         try {
             const newCategory = { ...data, id: crypto.randomUUID() };
             await createCategory(newCategory);

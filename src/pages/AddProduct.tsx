@@ -1,17 +1,30 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import api from "../api";
 import Button from "../components/Button";
 import Title from "../components/Title";
 import Input from "../components/Input";
 import useProducts from "../hooks/useProducts";
-import type { product } from "../types/product";
+import type { Product } from "../types/Product";
+import type { Category } from "../types/Category";
 import { useForm } from "react-hook-form";
 
 function AddProduct() {
     const navigate = useNavigate();
     const { createProduct } = useProducts();
-    const { register, handleSubmit, formState: { errors } } = useForm<product>();
+    const [categories, setCategories] = useState<Category[]>([]);
+    const { register, handleSubmit, formState: { errors } } = useForm<Product>();
 
-    const onSubmit = async (data: product) => {
+    useEffect(() => {
+        api.get("/categories")
+            .then((res) => {
+                const data = res.data.categories;
+                setCategories(Array.isArray(data) ? data : []);
+            })
+            .catch(() => setCategories([]));
+    }, []);
+
+    const onSubmit = async (data: Product) => {
         try {
             await createProduct({ ...data });
             navigate("/product/list");
@@ -50,6 +63,23 @@ function AddProduct() {
                             {errors.product.type === "pattern" && "Solo letras y números"}
                         </p>
                     )}
+                    <div className="flex flex-col">
+                        <label className="block text-sm text-gray-500 mb-1">Categoría</label>
+                        <select
+                            {...register("category", { required: true })}
+                            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option value="">Seleccionar categoría</option>
+                            {categories.map((category) => (
+                                <option key={category.id} value={category.category}>
+                                    {category.category}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.category && (
+                            <p className="text-red-500 text-sm mt-1">La categoría es requerida</p>
+                        )}
+                    </div>
                     <Input
                         type="text"
                         placeholder="Ingresar descripción"
@@ -124,11 +154,14 @@ function AddProduct() {
                             {...register("image_product", {
                                 required: "La imagen es requerida",
                                 validate: {
-                                    fileSize: (files: FileList) =>
-                                        files?.[0]?.size < 2 * 1024 * 1024 || "Máximo 2MB",
-                                    fileType: (files: FileList) =>
-                                        ["image/jpeg", "image/png"].includes(files?.[0]?.type) ||
-                                        "Solo JPG o PNG"
+                                    fileSize: (files: FileList | string | undefined) => {
+                                        if (!files || typeof files === "string") return "La imagen es requerida";
+                                        return files[0]?.size < 2 * 1024 * 1024 || "Máximo 2MB";
+                                    },
+                                    fileType: (files: FileList | string | undefined) => {
+                                        if (!files || typeof files === "string") return "La imagen es requerida";
+                                        return ["image/jpeg", "image/png"].includes(files[0]?.type) || "Solo JPG o PNG";
+                                    }
                                 }
                             })}
                         />

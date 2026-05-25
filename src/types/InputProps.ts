@@ -1,4 +1,3 @@
-export type InputProps = {
-    type: "text" | "number" | "date" | "file" | "email" | "password";
-    placeholder?: string;
-}
+import type { InputHTMLAttributes } from "react";
+
+export type InputProps = InputHTMLAttributes<HTMLInputElement>;
