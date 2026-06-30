@@ -29,6 +29,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
                         <Link to="/product/list" className="block p-2 rounded hover:bg-gray-700 transition">
                             Productos
                         </Link >
+                        <Link to="/sales" className="block p-2 rounded hover:bg-gray-700 transition">
+                            Ventas
+                        </Link>
                         <Link to="/user/list" className="block p-2 rounded hover:bg-gray-700 transition">
                             Usuarios
                         </Link>

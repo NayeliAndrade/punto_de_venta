@@ -2,6 +2,7 @@ import MockAdapter from "axios-mock-adapter";
 import api from "../api";
 import type { Category } from "../types/Category";
 import type { Product } from "../types/Product";
+import type { Sale } from "../types/Sale";
 import type { UserProps } from "../types/UserProps";
 
 const mock = new MockAdapter(api, { delayResponse: 500 });
@@ -59,6 +60,7 @@ const products : Product[] = [
         image_product: "/img/leche",
         description: "leche deslactosada nutrileche",
         unit_measure: "litro",
+        quantity: 15,
         VAT: 16,
         price: 20,
         cost: 22,
@@ -72,6 +74,7 @@ const products : Product[] = [
         image_product: "/img/huevos",
         description: "huevo san juan",
         unit_measure: "kilogramo",
+        quantity: 24,
         VAT: 16,
         price: 40,
         cost: 48,
@@ -85,6 +88,7 @@ const products : Product[] = [
         image_product: "/img/tv",
         description: "smart tv de 50 in",
         unit_measure: "pieza",
+        quantity: 10,
         VAT: 16,
         price: 20000,
         cost: 22000,
@@ -122,6 +126,130 @@ mock.onDelete(/\/products\/.+/).reply((config) => {
   }
 
   return [404, { message: "Product not found" }];
+});
+/* ================= SALES ================= */
+
+const sales: Sale[] = [
+  {
+    id: generateUuid(),
+    customer: "Juan",
+    date: "2026-05-10",
+    items: [
+      {
+        productId: products[1].id,
+        product: products[1].product,
+        quantity: 3,
+        unit_price: products[1].price,
+        total: products[1].price * 3
+      },
+      {
+        productId: products[0].id,
+        product: products[0].product,
+        quantity: 2,
+        unit_price: products[0].price,
+        total: products[0].price * 2
+      }
+    ],
+    total: products[1].price * 3 + products[0].price * 2
+  }
+];
+
+mock.onGet("/sales").reply(200, { sales });
+
+mock.onPost("/sales").reply((config) => {
+  const newSale: Sale = JSON.parse(config.data);
+
+  const insufficient = newSale.items.find((item) => {
+    const product = products.find((p) => p.id === item.productId);
+    return !product || product.quantity < item.quantity;
+  });
+
+  if (insufficient) {
+    const product = products.find((p) => p.id === insufficient.productId);
+    const productName = product?.product ?? "El producto";
+    return [400, { message: `${productName} ya no hay en existencia` }];
+  }
+
+  newSale.items.forEach((item) => {
+    const product = products.find((p) => p.id === item.productId);
+    if (product) {
+      product.quantity -= item.quantity;
+    }
+  });
+
+  sales.push(newSale);
+  return [201, { sales }];
+});
+
+mock.onPut(/\/sales\/.+/).reply((config) => {
+  const id = config.url!.split("/").pop();
+  const updatedSale: Sale = JSON.parse(config.data);
+  let index = sales.findIndex((sale) => String(sale.id) === String(id));
+
+  // fallback: try matching by id from body
+  if (index === -1 && updatedSale?.id) {
+    index = sales.findIndex((sale) => String(sale.id) === String(updatedSale.id));
+  }
+
+  if (index === -1) {
+    return [404, { message: "Sale not found" }];
+  }
+
+  const currentSale = sales[index];
+
+  // restore stock from existing sale
+  currentSale.items.forEach((item) => {
+    const product = products.find((p) => p.id === item.productId);
+    if (product) {
+      product.quantity += item.quantity;
+    }
+  });
+
+  const insufficient = updatedSale.items.find((item) => {
+    const product = products.find((p) => p.id === item.productId);
+    return !product || product.quantity < item.quantity;
+  });
+
+  if (insufficient) {
+    // rollback restoration if stock is insufficient
+    currentSale.items.forEach((item) => {
+      const product = products.find((p) => p.id === item.productId);
+      if (product) {
+        product.quantity -= item.quantity;
+      }
+    });
+    const product = products.find((p) => p.id === insufficient.productId);
+    const productName = product?.product ?? "El producto";
+    return [400, { message: `${productName} ya no hay en existencia` }];
+  }
+
+  updatedSale.items.forEach((item) => {
+    const product = products.find((p) => p.id === item.productId);
+    if (product) {
+      product.quantity -= item.quantity;
+    }
+  });
+
+  sales[index] = { ...currentSale, ...updatedSale };
+  return [200, { sale: sales[index] }];
+});
+
+mock.onDelete(/\/sales\/.+/).reply((config) => {
+  const id = config.url?.split("/").pop();
+  const index = sales.findIndex((sale) => String(sale.id) === String(id));
+
+  if (index !== -1) {
+    sales[index].items.forEach((item) => {
+      const product = products.find((p) => p.id === item.productId);
+      if (product) {
+        product.quantity += item.quantity;
+      }
+    });
+    sales.splice(index, 1);
+    return [200, { message: "Sale deleted" }];
+  }
+
+  return [404, { message: "Sale not found" }];
 });
 
 /* ================= USERS ================= */

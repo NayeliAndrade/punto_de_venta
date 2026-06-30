@@ -131,8 +131,20 @@ function EditProduct() {
                     )}
                     <Input
                         type="number"
+                        placeholder="Cantidad disponible"
+                        {...register("quantity", { valueAsNumber: true, required: true, min: 0 })}
+                    />
+                    {errors.quantity && (
+                        <p className="text-red-500">
+                            {errors.quantity.type === "required" && "La cantidad es requerida"}
+                            {errors.quantity.type === "min" && "La cantidad no puede ser negativa"}
+                            {errors.quantity.type === "pattern" && "Solo números"}
+                        </p>
+                    )}
+                    <Input
+                        type="number"
                         placeholder="Ingresar VAT"
-                        {...register("VAT", { required: true, maxLength: 3, pattern: /^[0-9]+$/ })}
+                        {...register("VAT", { valueAsNumber: true, required: true, maxLength: 3 })}
                     />
                     {errors.VAT && (
                         <p className="text-red-500">
@@ -144,7 +156,7 @@ function EditProduct() {
                     <Input
                         type="number"
                         placeholder="Precio de venta"
-                        {...register("price", { required: true, pattern: /^[0-9]+$/ })}
+                        {...register("price", { valueAsNumber: true, required: true })}
                     />
                     {errors.price && (
                         <p className="text-red-500">
@@ -155,7 +167,7 @@ function EditProduct() {
                     <Input
                         type="number"
                         placeholder="Costo al público"
-                        {...register("cost", { required: true, pattern: /^[0-9]+$/ })}
+                        {...register("cost", { valueAsNumber: true, required: true })}
                     />
                     {errors.cost && (
                         <p className="text-red-500">

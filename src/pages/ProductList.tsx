@@ -10,6 +10,7 @@ function ProductList() {
     const columns: Column<Product>[] = [
         { header: "Producto", accessor: "product" },
         { header: "Categoría", accessor: "category" },
+        { header: "Stock", accessor: "quantity" },
         { header: "Precio", accessor: "price" },
         { header: "SKU", accessor: "sku" },
         {

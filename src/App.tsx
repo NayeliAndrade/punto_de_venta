@@ -4,6 +4,7 @@ import AddProduct from "./pages/AddProduct"
 import AddUser from "./pages/AddUser"
 import AddCategory from "./pages/AddCategory"
 import Pay from "./pages/Pay"
+import Sales from "./pages/Sales"
 import ProductList from "./pages/ProductList"
 import CategoryList from "./pages/CategoryList"
 import Layout from "./layout/Layout"
@@ -28,6 +29,8 @@ function App() {
       <Route path="/category/delete/:id" element={<Layout><EditCategory /></Layout>} />
       <Route path="/user/list" element={<Layout><UserList /></Layout>} />
       <Route path="/user/edit/:id" element={<Layout><EditUser /></Layout>} />
+      <Route path="/sales" element={<Layout><Sales /></Layout>} />
+      <Route path="/sales/edit/:id" element={<Layout><Sales /></Layout>} />
       <Route path="/pay" element={<Layout><Pay /></Layout>} />
     </Routes>
   )
